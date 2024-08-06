@@ -22,12 +22,19 @@ main{
   /* font-family: "M+1VM+IPAG circle Regular"!important; */
   /* font-family: AoyagiKouzanFontGyousyo!important; */
   background-color: #eef;
-  width: 1920px;
+  max-width: 1920px!important;
   height: 1006px;
   margin: 20px;
   padding: 0;
-  background-image: url(bg2_blackboard_man.jpg);
+  /* background-image: url(bg2_blackboard_man.jpg); */
   background-size: cover;
+ }
+ #innertext{
+  height: 1006px;
+  max-width: 1920px;
+  width: 1920px;
+  display: table-cell;
+  vertical-align: top;
  }
 .pagetitle{
   font-size: 3rem;
@@ -87,10 +94,29 @@ text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0
 -webkit-text-stroke-width: 3px;
 -webkit-text-stroke-color: black;
 }
-span input{
+li>input{
   white-space: nowrap;
   margin-right: 1em;
   display: inline;
+}
+.textsetting>li{
+  margin: 0;
+  padding: 0;
+}
+.textsetting>li>input{
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+#padding_top, #padding_left{
+  width: 3em;
+}
+footer{
+  border-top: 1px solid black;
+  width: 100vw;
+  margin: 0;
+  max-width: 100vw;
+  padding: 0px 20px;
 }
 </style>
 </head>
@@ -98,6 +124,7 @@ span input{
 <h1 class="pagetitle">Markdownいっぱつ画像化</h1>
 
 <h2 class="pagesection">設定</h2>
+
 <button id="clear_button">テキストをリセット</button>
 
 <!-- フォームを追加 -->
@@ -122,30 +149,71 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 ***fontname***
 </textarea>
     </dd>
-    <dt>テキスト色</dt>
+    <dt>テキストスタイル</dt>
     <dd>
-        <span>標準&nbsp;    <input type="color" id="color_text"    value="#000000"></span>
-        <span>大見出し&nbsp;<input type="color" id="color_h2text"  value="#ff0000"></span>
-        <span>小見出し&nbsp;<input type="color" id="color_h3text"  value="#ffa0a0"></span>
+      <details>
+          <ul class="textsetting">
+            <li>サイズ：<input type="number" id="text_size"          value="50" min="10" max="100">&nbsp;</li>
+            <li>文字色：<input type="color"  id="text_color"         value="#000000"></li>
+            <li>太字　：<input type="radio"  id="text_weight_yes"    value="yes"  name="text_weight"> Yes 
+                        <input type="radio"  id="text_weight_no"     value="no"   name="text_weight" checked> No</li>
+            <li>斜体　：<input type="radio"  id="text_style_yes"     value="yes"  name="text_style"> Yes
+                        <input type="radio"  id="text_style_no"      value="no"   name="text_style" checked> No</li>
+            <li>縁色１：<input type="radio"  id="text_color_e1_auto" value="auto" name="text_color_e1" checked>auto, 
+                        <input type="radio"  id="text_color_e1_manu" value="manu" name="text_color_e1">manual 
+                        <input type="color"  id="text_color_e1_val"  value="#000000"></li>
+            <li>縁色２：<input type="radio"  id="text_color_e2_auto" value="auto" name="text_color_e2" checked>auto, 
+                        <input type="radio"  id="text_color_e2_manu" value="manu" name="text_color_e2">manual 
+                        <input type="color"  id="text_color_e2_val"  value="#ffffff"></li>
+          </ul>
+      </details>
+    </dd>
+    <dt>H2テキストスタイル（大見出し）</dt>
+    <dd>
+        <span>文字色 <input type="color" id="color_h2text"  value="#ff0000"> 縁色２</span>
+    </dd>
+    <dt>H3テキストスタイル（小見出し）</dt>
+    <dd>
+        <span>文字色 <input type="color" id="color_h3text"  value="#ffa0a0"> 縁色３</span>
     </dd>
     <dt>テキスト配置</dt>
     <dd>
       <div>
-        <input type="radio" id="leftAlign" name="textAlign" value="left" checked>
-        <label for="leftAlign">左寄せ</label>
-        <input type="radio" id="centerAlign" name="textAlign" value="center">
-        <label for="centerAlign">センタリング</label>
-        <input type="radio" id="rightAlign" name="textAlign" value="right">
-        <label for="rightAlign">右寄せ</label>
+        <input type="radio" id="left_align" name="text_align" value="left" checked>
+        <label for="left_align">左寄せ</label>
+        <input type="radio" id="center_align" name="text_align" value="center">
+        <label for="center_align">センタリング</label>
+        <input type="radio" id="right_align" name="text_align" value="right">
+        <label for="right_align">右寄せ</label>
       </div>    
     </dd>
+    <dd>
+      <div>
+        <input type="radio" id="top_align" name="text_valign" value="top" checked>
+        <label for="top_align">上端揃え</label>
+        <input type="radio" id="middle_align" name="text_valign" value="middle">
+        <label for="middle_align">中央揃え</label>
+        <input type="radio" id="bottom_align" name="text_valign" value="bottom">
+        <label for="bottom_align">下端揃え</label>
+      </div>    
+    </dd>
+    <dd>
+      <ul>
+        <li>top: <input type="number" id="padding_top"  name="padding_top"  value="100">px</li>
+        <li>left:<input type="number" id="padding_left" name="padding_left" value="100">px</li>
+      </ul>
+    </dd>
+    <dt>背景画像選択</dt>
+    <dd>  <input type="file" id="imageFile" accept="image/png, image/jpeg"></dd>
   </ul>
   <button id="update_button">更新・ダウンロード</button>
+  <button id="save_button">ダウンロード</button>
+
 </div>
 
 <h2 class="pagesection">プレビュー</h2>
-<main id="target" class="shadow l-main-editer js-markdown-editer">
-
+<main id="target" class="shadow">
+<div id="innertext" class="l-main-editer js-markdown-editer">
 ### 文字入りの画像は
 ## 目立つ！
 
@@ -158,8 +226,13 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 |-------|-------|-------|-------|
 | 1行目 | 1-1   | 1-2   | 1-3   |
 | 2行目 | 2-1   | 2-2   | 2-3   |
-
+</div>
 </main>
+<footer>
+  <p>
+    &copy; <a href="https://note.com/koji_doi.html">Koji Doi</a>. 2024. 
+  </p>
+</footer>
 
 <script>
   // テキスト入力欄を空に
@@ -167,20 +240,98 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     document.getElementById('textarea').value = "";
   });
 
-  document.getElementById('update_button').addEventListener('click', function() {
+  document.getElementById('save_button').addEventListener('click', function() {
+    downloadElAsPng();
+  });
+
+  // form 変更反映
+  ["text"].map(
+  // **bold** -> <strong>bold</strong> font-weight: bold
+  // *italic* -> <em>italic</em>       font-style: italic
+    (targetprop) => {
+      ["color","size","color_e1_val","color_e2_val"].map(
+        (x0) => {
+          let x = targetprop + "_" + x0;
+          console.log("target: ",x);
+          document.getElementById(x).addEventListener('change', function(){
+            console.log("will change " + x);
+            let prop = x.match("color")  ? "color" 
+                     : x.match("size")   ? "fontSize"
+                     : x.match("margin(?:_(left|top))") ? x
+                     : x.match("padding(?:_(left|top))") ? x :'';
+            console.log("prop="+prop);
+            //document.querySelector('main').style[x] = document.getElementById(x).value;
+            let v = document.getElementById(x).value;
+            if(prop=="fontSize"){
+              v += "px";
+            }
+            document.getElementById('target').style[prop] = v;
+          })
+        }
+      );
+    }
+  );
+
+  document.querySelectorAll('input[name="text_align"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      const main = document.querySelector('main');
+      console.log("align ", this.value);
+      main.style.textAlign = this.value;
+    });
+  });
+  document.querySelectorAll('input[name="text_valign"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      const innertext = document.querySelector('#innertext');
+      console.log("valign ", this.value);
+      // main.offsetHeight が1006のはず。
+      //innertext.style.vertical_align = this.value;
+      var targetDiv = document.getElementById("innertext");
+      if (targetDiv) {
+        targetDiv.style.display = "table-cell";
+        targetDiv.style.verticalAlign = this.value;
+      }
+    });
+  });
+  document.querySelectorAll('input[name="padding_top"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      let padding_top = document.getElementById('padding_top').value;
+      console.log("ptop=", padding_top);
+      document.querySelector("#innertext").style.paddingTop = padding_top+"px";
+    });
+  });
+   //document.querySelector("#innertext").style.paddingLeft = margin_left+"px";
+    //document.querySelector("#innertext").style.paddingTop = margin_top+"px";
+ 
+
+  document.getElementById('textarea').addEventListener('change', function() {
     // テキスト入力フォームの内容を取得
     var textInput = document.getElementById('textarea').value;
     
-    // カラーピッカーの色設定を取得
-    const color_text   = document.getElementById('color_text').value;
+    // font設定を取得
+   /*  const color_text   = document.getElementById('color_text').value;
+    const size_text    = document.getElementById('size_text').value;
+    const color_e1_val = document.getElementById('size_text').value;
+    //console.log(document.querySelector('#form1').color_e1.value=="auto" ? "#000000" : "#ffffff");
+    let elements = document.getElementsByName('color_e1');
+    let len = elements.length;
+    let chkval = '';
+    for(let i=0; i<len; i++){
+      if(elements.item(i).checked){
+        chkval = elements.item(i).value;
+      }
+    } */
+    
     const color_h2text = document.getElementById('color_h2text').value;
     const color_h3text = document.getElementById('color_h3text').value;
+    //const size_h2text  = document.getElementById('size_h2text').value;
+    //const size_h3text  = document.getElementById('size_h3text').value;
 
     // mainブロック内にテキストを追記
     const main = document.querySelector('main');
 
     // mainタグ内のタグにカラーピッカーの色設定を反映
-    main.style.color = color_text;
+    /* main.style.color    = color_text;
+    main.style.fontSize = size_text + "px";
     const h2 = main.querySelector('h2');
     if (h2) {
       h2.style.color = color_h2text;
@@ -188,17 +339,14 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     const h3 = main.querySelector('h3');
     if (h3) {
       h3.style.color = color_h3text;
-    }
+    } */
+
+    // text margin
+    //const margin_left = document.getElementById('margin_left').value;
+    //const margin_top  = document.getElementById('margin_top').value;
 
     // 隠し機能：使用フォント名を追記する
     textInput = textInput.replace("***fontname***", getComputedStyle(document.querySelector('main')).font);
-
-    document.querySelectorAll('input[name="textAlign"]').forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        const main = document.querySelector('main');
-        main.style.textAlign = this.value;
-      });
-    });
 
     const md = markdownit({
     html: true,
@@ -207,14 +355,32 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     });
 
     // md -> html
-    const htmltxt = md.render(textInput);
-    main.innerHTML = htmltxt;
-    downloadElAsPng();
+    var htmltxt = md.render(textInput);
+    let innertext = document.getElementById('innertext');
+    innertext.innerHTML = htmltxt;
+    //console.log(htmltxt);
+    //document.querySelector("#innertext").style.paddingLeft = margin_left+"px";
+    //document.querySelector("#innertext").style.paddingTop = margin_top+"px";
+    //downloadElAsPng();
+  }); //document.getElementById('#textarea')
+
+  document.getElementById('imageFile').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        const base64String = reader.result;
+        const main = document.querySelector('main');
+        main.style.backgroundImage = `url(${base64String})`;
+      };
+      reader.readAsDataURL(file);
+    }
   });
 </script>
 
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
+
 <script>
 
 // マークダウンの基本設定
@@ -242,6 +408,7 @@ function getHtml(selector) {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
+
 // https://khsmty.com/article/html2canvas-image-download/
 function downloadElAsPng() {
   const el = document.querySelector("main");
@@ -252,10 +419,34 @@ function downloadElAsPng() {
 
   html2canvas(el).then((canvasEl) => {
     const aEl = document.createElement("a");
+   /*  const img = new Image();
+    img.src = 'bg2_blackboard_man.jpg';
+    img.onload = function() {
+      //const canvas = document.getElementById('myCanvas');
+      //const ctx = canvas.getContext('2d');
+      //ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const img = new Image();
+      img.src = 'bg2_blackboard_man.jpg';
+      img.onload = function() {
+        //const canvas = document.getElementById('myCanvas');
+        const canvas = canvasEl;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+        // Now you can safely call toDataURL on the canvas
+        try{
+          const dataURL = canvas.toDataURL();
+          console.log(dataURL);
+        }catch(e){
+          console.log('Maybe failed to read image.');
+        }
+      };
+    }; */
     aEl.href = canvasEl.toDataURL("image/png");
     aEl.download = "md_snapshot.png";
     aEl.click();
-  });
+    }
+  );
 };
 </script>
 </body>
