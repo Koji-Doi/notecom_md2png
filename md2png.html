@@ -16,6 +16,9 @@ Arial,
 Meiryo,
 sans-serif;
 }
+input[type="number"]{
+  width: 3em;
+}
 main{
   font-family: "BIZ UDPGothic"!important;
   /* font-family: "Meiryo"!important; */
@@ -63,7 +66,14 @@ margin: 5px;
 font-size: 200px;
 line-height: 220px;
 font-weight: bold;
-text-shadow: 10px 10px 0px #fff, -10px -10px 0px #fff, -10px 10px 0px #fff, 10px -10px 0px #fff, 10px 0px 0px #fff, -10px 0px 0px #fff, 0px 10px 0px #fff, 0px -10px 0px #fff;
+text-shadow: 10px 10px 0px #fff, 
+-10px -10px 0px #fff, 
+-10px 10px 0px #fff, 
+10px -10px 0px #fff, 
+10px 0px 0px #fff, 
+-10px 0px 0px #fff, 
+0px 10px 0px #fff, 
+0px -10px 0px #fff;
 text-wrap: nowrap;
 -webkit-text-stroke-width: 6px;
 -webkit-text-stroke-color: black;
@@ -108,9 +118,12 @@ li>input{
   padding: 0;
   white-space: nowrap;
 }
-#padding_top, #padding_left{
+.input_px{
   width: 3em;
 }
+/* #padding_top, #padding_left{
+  width: 3em;
+} */
 footer{
   border-top: 1px solid black;
   width: 100vw;
@@ -123,15 +136,23 @@ footer{
 <body>
 <h1 class="pagetitle">Markdownいっぱつ画像化</h1>
 
-<h2 class="pagesection">設定</h2>
 
-<button id="clear_button">テキストをリセット</button>
+<h2 class="pagesection">設定</h2>  
 
 <!-- フォームを追加 -->
 <div>
   <ul>
+    <dt>テーマ</dt>
+    <dd>
+      <select id="theme" name="theme">
+        <option value="std">標準</option>
+        <option value="black_board_man" selected>黒板と男性イメージ</option>
+
+      </select>      
+    </dd>
     <dt>markdownテキスト</dt>
     <dd>
+      <button id="clear_button">テキストをリセット</button>
       <textarea id="textarea" name="textarea" rows="10" cols="50">
 ### 文字入りの画像は
 ## 目立つ！
@@ -153,47 +174,43 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     <dd>
       <details>
           <ul class="textsetting">
-            <li>サイズ：<input type="number" id="text_size"          value="50" min="10" max="100">&nbsp;</li>
-            <li>文字色：<input type="color"  id="text_color"         value="#000000"></li>
-            <li>太字　：<input type="radio"  id="text_weight_yes"    value="yes"  name="text_weight"> Yes 
-                        <input type="radio"  id="text_weight_no"     value="no"   name="text_weight" checked> No</li>
-            <li>斜体　：<input type="radio"  id="text_style_yes"     value="yes"  name="text_style"> Yes
-                        <input type="radio"  id="text_style_no"      value="no"   name="text_style" checked> No</li>
-            <li>縁色１：<input type="radio"  id="text_color_e1_auto" value="auto" name="text_color_e1" checked>auto, 
-                        <input type="radio"  id="text_color_e1_manu" value="manu" name="text_color_e1">manual 
-                        <input type="color"  id="text_color_e1_val"  value="#000000"></li>
-            <li>縁色２：<input type="radio"  id="text_color_e2_auto" value="auto" name="text_color_e2" checked>auto, 
-                        <input type="radio"  id="text_color_e2_manu" value="manu" name="text_color_e2">manual 
-                        <input type="color"  id="text_color_e2_val"  value="#ffffff"></li>
+            <li>サイズ：<input type="number" id="text_size"           value="50"      name="text_size" min="10" max="100">&nbsp;px</li>
+            <li>文字色：<input type="color"  id="text_color"          value="#000000" name="text_color"></li>
+            <li>太字　：<input type="radio"  id="text_weight_bold"    value="bold"    name="text_weight"> Yes 
+                        <input type="radio"  id="text_weight_normal"  value="normal"  name="text_weight" checked> No</li>
+            <li>斜体　：<input type="radio"  id="text_style_italic"   value="italic"  name="text_style"> Yes
+                        <input type="radio"  id="text_style_normal"   value="normal"  name="text_style" checked> No</li>
+            <li>縁　１：太さ&nbsp;<input type="number" id="text_t_e1" value="2"       name="text_t_e1" min="0">px; &nbsp;
+                        色&nbsp;<input type="color"    id="text_c_e1" value="#000000" name="text_c_e1"></li>
+            <li>縁　２：太さ&nbsp;<input type="number" id="text_t_e2" value="2"       name="text_t_e2" min="0">px; &nbsp;
+                        色&nbsp;<input type="color"    id="text_c_e2" value="#ffffff" name="text_c_e2"></li>
           </ul>
       </details>
     </dd>
     <dt>H2テキストスタイル（大見出し）</dt>
     <dd>
-        <span>文字色 <input type="color" id="color_h2text"  value="#ff0000"> 縁色２</span>
     </dd>
     <dt>H3テキストスタイル（小見出し）</dt>
     <dd>
-        <span>文字色 <input type="color" id="color_h3text"  value="#ffa0a0"> 縁色３</span>
     </dd>
     <dt>テキスト配置</dt>
     <dd>
       <div>
-        <input type="radio" id="left_align" name="text_align" value="left" checked>
+        <input type="radio" id="left_align" name="textalign" value="left" checked>
         <label for="left_align">左寄せ</label>
-        <input type="radio" id="center_align" name="text_align" value="center">
+        <input type="radio" id="center_align" name="textalign" value="center">
         <label for="center_align">センタリング</label>
-        <input type="radio" id="right_align" name="text_align" value="right">
+        <input type="radio" id="right_align" name="textalign" value="right">
         <label for="right_align">右寄せ</label>
       </div>    
     </dd>
     <dd>
       <div>
-        <input type="radio" id="top_align" name="text_valign" value="top" checked>
+        <input type="radio" id="top_align" name="textvalign" value="top" checked>
         <label for="top_align">上端揃え</label>
-        <input type="radio" id="middle_align" name="text_valign" value="middle">
+        <input type="radio" id="middle_align" name="textvalign" value="middle">
         <label for="middle_align">中央揃え</label>
-        <input type="radio" id="bottom_align" name="text_valign" value="bottom">
+        <input type="radio" id="bottom_align" name="textvalign" value="bottom">
         <label for="bottom_align">下端揃え</label>
       </div>    
     </dd>
@@ -234,49 +251,190 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
   </p>
 </footer>
 
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
+  //// DEFAULT VALUES ////
+  const vals ={
+    std:{
+      text_size:     '50',     // text font size [px]
+      text_color:    '#000000',// text color
+      text_weight:   'normal', // normal or bold
+      text_style:    'normal', // normal or italic
+      text_t_e1:     '2',      // text stroke thickness
+      text_c_e1:     '#000000',// text stroke color
+      text_t_e2:     '2',      // text shadow width
+      text_c_e2:     '#ffffff',// text shadow color
+      h2text_size:   '50',     // text font size [px]
+      h2text_color:  '#000000',// text color
+      h2text_weight: 'normal', // normal or bold
+      h2text_style:  'normal', // normal or italic
+      h2text_t_e1:   '2',      // text stroke thickness
+      h2text_c_e1:   '#000000',// text stroke color
+      h2text_t_e2:   '2',      // text shadow width
+      h2text_c_e2:   '#ffffff',// text shadow color
+      h3text_size:   '50',     // text font size [px]
+      h3text_color:  '#000000',// text color
+      h3text_weight: 'normal', // normal or bold
+      h3text_style:  'normal', // normal or italic
+      h3text_t_e1:   '2',      // text stroke thickness
+      h3text_c_e1:   '#000000',// text stroke color
+      h3text_t_e2:   '2',      // text shadow width
+      h3text_c_e2:   '#ffffff',// text shadow color
+      emtext_size:   '50',     // empahasized(em) text font size [px]
+      emtext_color:  '#000000',// empahasized(em) text color
+      emtext_weight: 'normal', // empahasized(em) normal or bold
+      emtext_style:  'normal', // empahasized(em) normal or italic
+      emtext_t_e1:   '2',      // empahasized(em) text stroke thickness
+      emtext_c_e1:   '#000000',// empahasized(em) text stroke color
+      emtext_t_e2:   '2',      // empahasized(em) text shadow width
+      emtext_c_e2:   '#ffffff',// empahasized(em) text shadow color
+      sttext_size:   '50',     // strong text font size [px]
+      sttext_color:  '#000000',// strong text color
+      sttext_weight: 'normal', // strong normal or bold
+      sttext_style:  'normal', // strong normal or italic
+      sttext_t_e1:   '2',      // strong text stroke thickness
+      sttext_c_e1:   '#000000',// strong text stroke color
+      sttext_t_e2:   '2',      // strong text shadow width
+      sttext_c_e2:   '#ffffff',// strong text shadow color
+      thtext_size:   '50',     // header cell (th) text font size [px]
+      thtext_color:  '#000000',// header cell (th) text color
+      thtext_weight: 'normal', // header cell (th) normal or bold
+      thtext_style:  'normal', // header cell (th) normal or italic
+      thtext_t_e1:   '2',      // header cell (th) text stroke thickness
+      thtext_c_e1:   '#000000',// header cell (th) text stroke color
+      thtext_t_e2:   '2',      // header cell (th) text shadow width
+      thtext_c_e2:   '#ffffff',// header cell (th) text shadow color
+      tdtext_size:   '50',     // cell (td) text font size [px]
+      tdtext_color:  '#000000',// cell (td) text color
+      tdtext_weight: 'normal', // cell (td) normal or bold
+      tdtext_style:  'normal', // cell (td) normal or italic
+      tdtext_t_e1:   '2',      // cell (td) text stroke thickness
+      tdtext_c_e1:   '#000000',// cell (td) text stroke color
+      tdtext_t_e2:   '2',      // cell (td) text shadow width
+      tdtext_c_e2:   '#ffffff',// cell (td) text shadow color
+
+      textalign:     'left',   // text horizontal align
+      textvalign:    'top',    // text vertical align
+      padding_left:  '0',      // left padding [px]
+      padding_top:   '0',      // top padding [px]
+      imagefile:     ''        // background image file name (jpeg/png)
+    },
+    black_board_man:{
+      text_color:  '#ffff00',
+      text_size:   '70',
+      text_weight: 'bold',
+      padding_left:  '100'
+    }
+  };
+  //// END of DEFAULT VALUES ////
+
+  // standard theme = 'std'
+  let std_v = vals['std'];
+
+  function theme_val(theme, propname){
+    if(typeof theme =="undefined"){
+      theme = 'std';
+    }
+    if(!(theme in vals)){
+      return(undefined);
+    }
+    if(propname in vals[theme]){
+      return(vals[theme][propname]);
+    }else{
+      return(vals['std'][propname]);
+    }
+  }
+
+  function shadow_val(t, c){
+    t = t.replace(/(\d+)$/, '$1px');
+    return( `${t}  ${t} 0 ${c}, `
+         + `-${t} -${t} 0 ${c}, `
+         + `-${t}  ${t} 0 ${c}, `
+         + ` ${t} -${t} 0 ${c}, `
+         + ` ${t}  0    0 ${c}, `
+         + `-${t}  0    0 ${c}, `
+         + ` 0     ${t} 0 ${c}, `
+         + ` 0    -${t} 0 ${c}`);
+  }
+
+  function id2propname(id){
+    return(id.match("c_e1")         ? "-webkit-text-stroke-color"
+         : id.match("t_e1")         ? "-webkit-text-stroke-width"
+         : id.match("c_e2")         ? "textShadow"
+         : id.match("t_e2")         ? "textShadow"
+         : id.match("color")        ? "color"
+         : id.match("size")         ? "fontSize" 
+         : id.match("weight")       ? "fontWeight" 
+         : id.match("style")        ? "fontStyle"
+         : id.match("valign")       ? "verticalAlign"
+         : id.match("align")        ? "textAlign"
+         : id.match("padding_top")  ? "paddingTop"
+         : id.match("padding_left") ? "paddingLeft" : '');
+  }
+
+  // すべての要素に対して指定されたCSSプロパティを更新
+  function updateCSSProperty(selector, property, value) {
+    const elements = document.querySelectorAll(selector);  
+    elements.forEach(element => {
+        element.style[property] = value;
+    });
+  }
+
   // テキスト入力欄を空に
   document.getElementById('clear_button').addEventListener('click', function() {
     document.getElementById('textarea').value = "";
   });
 
+  // make png file
   document.getElementById('save_button').addEventListener('click', function() {
     downloadElAsPng();
   });
 
   // form 変更反映
+  let csssel   = {text:"#innertext p", h2text:"#innertext h2", h3text:"#innertext h3", em:"#innertext em", strong:"#innertext strong"};
   ["text"].map(
   // **bold** -> <strong>bold</strong> font-weight: bold
   // *italic* -> <em>italic</em>       font-style: italic
-    (targetprop) => {
-      ["color","size","color_e1_val","color_e2_val"].map(
-        (x0) => {
-          let x = targetprop + "_" + x0;
-          console.log("target: ",x);
-          document.getElementById(x).addEventListener('change', function(){
-            console.log("will change " + x);
-            let prop = x.match("color")  ? "color" 
-                     : x.match("size")   ? "fontSize"
-                     : x.match("margin(?:_(left|top))") ? x
-                     : x.match("padding(?:_(left|top))") ? x :'';
-            console.log("prop="+prop);
-            //document.querySelector('main').style[x] = document.getElementById(x).value;
-            let v = document.getElementById(x).value;
-            if(prop=="fontSize"){
-              v += "px";
-            }
-            document.getElementById('target').style[prop] = v;
-          })
-        }
-      );
-    }
+    (target) => {
+      ["color","size","c_e1","t_e1","c_e2","t_e2"].map(
+        (p0) => {
+          let p = target + "_" + p0;
+          document.getElementById(p).addEventListener('change', function(){
+            let p_val = document.getElementById(p).value;
+            let t_e2  = target + "_t_e2";
+            let c_e2  = target + "_c_e2";
+            let prop = p.match("c_e1")  ? ["-webkit-text-stroke-color", p_val] 
+                     : p.match("t_e1")  ? ["-webkit-text-stroke-width", p_val+"px"]
+                     : p.match("c_e2")  ? ["textShadow", ((std_v[c_e2]=p_val), shadow_val(std_v[t_e2], std_v[c_e2]))]
+                     : p.match("t_e2")  ? ["textShadow", ((std_v[t_e2]=p_val), shadow_val(std_v[t_e2], std_v[c_e2]))]
+                     : p.match("color") ? ["color" , p_val]
+                     : p.match("size")  ? ["fontSize", p_val+"px"] :[];
+            updateCSSProperty(csssel[target], prop[0], prop[1]);
+            console.log("chg ", eventtype, target, prop[0], prop[1]);
+          });
+        } // p0
+      ); // map for color size etc.
+
+      ["weight","style"].map(
+        (p0) => {
+          let p = target + "_" + p0;
+          document.querySelectorAll(`input[name="${p}"]`).forEach(function(radio) {
+            radio.addEventListener('change', function() {
+              let prop = (p0=="weight") ? "fontWeight" : "fontStyle";
+              updateCSSProperty(csssel[target], prop, this.value);
+            });    
+          });
+        });
+    } // target
   );
 
   document.querySelectorAll('input[name="text_align"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
-      const main = document.querySelector('main');
-      console.log("align ", this.value);
-      main.style.textAlign = this.value;
+      updateCSSProperty('main', 'textAlign', this.value);
     });
   });
   document.querySelectorAll('input[name="text_valign"]').forEach(function(radio) {
@@ -295,55 +453,22 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
   document.querySelectorAll('input[name="padding_top"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
       let padding_top = document.getElementById('padding_top').value;
-      console.log("ptop=", padding_top);
       document.querySelector("#innertext").style.paddingTop = padding_top+"px";
     });
   });
-   //document.querySelector("#innertext").style.paddingLeft = margin_left+"px";
-    //document.querySelector("#innertext").style.paddingTop = margin_top+"px";
- 
+  document.querySelectorAll('input[name="padding_left"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      let padding_left = document.getElementById('padding_left').value;
+      document.querySelector("#innertext").style.paddingLeft = padding_left+"px";
+    });
+  });
 
   document.getElementById('textarea').addEventListener('change', function() {
     // テキスト入力フォームの内容を取得
     var textInput = document.getElementById('textarea').value;
-    
-    // font設定を取得
-   /*  const color_text   = document.getElementById('color_text').value;
-    const size_text    = document.getElementById('size_text').value;
-    const color_e1_val = document.getElementById('size_text').value;
-    //console.log(document.querySelector('#form1').color_e1.value=="auto" ? "#000000" : "#ffffff");
-    let elements = document.getElementsByName('color_e1');
-    let len = elements.length;
-    let chkval = '';
-    for(let i=0; i<len; i++){
-      if(elements.item(i).checked){
-        chkval = elements.item(i).value;
-      }
-    } */
-    
-    const color_h2text = document.getElementById('color_h2text').value;
-    const color_h3text = document.getElementById('color_h3text').value;
-    //const size_h2text  = document.getElementById('size_h2text').value;
-    //const size_h3text  = document.getElementById('size_h3text').value;
 
     // mainブロック内にテキストを追記
     const main = document.querySelector('main');
-
-    // mainタグ内のタグにカラーピッカーの色設定を反映
-    /* main.style.color    = color_text;
-    main.style.fontSize = size_text + "px";
-    const h2 = main.querySelector('h2');
-    if (h2) {
-      h2.style.color = color_h2text;
-    }
-    const h3 = main.querySelector('h3');
-    if (h3) {
-      h3.style.color = color_h3text;
-    } */
-
-    // text margin
-    //const margin_left = document.getElementById('margin_left').value;
-    //const margin_top  = document.getElementById('margin_top').value;
 
     // 隠し機能：使用フォント名を追記する
     textInput = textInput.replace("***fontname***", getComputedStyle(document.querySelector('main')).font);
@@ -358,10 +483,6 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     var htmltxt = md.render(textInput);
     let innertext = document.getElementById('innertext');
     innertext.innerHTML = htmltxt;
-    //console.log(htmltxt);
-    //document.querySelector("#innertext").style.paddingLeft = margin_left+"px";
-    //document.querySelector("#innertext").style.paddingTop = margin_top+"px";
-    //downloadElAsPng();
   }); //document.getElementById('#textarea')
 
   document.getElementById('imageFile').addEventListener('change', function(event) {
@@ -376,12 +497,10 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
       reader.readAsDataURL(file);
     }
   });
-</script>
 
-<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
+  document.getElementById('theme').addEventListener('change', function(event) {
 
-<script>
+  });
 
 // マークダウンの基本設定
 
@@ -404,10 +523,6 @@ function getHtml(selector) {
   markdown_text = markdown_text.replace(/&amp;/g, );
   return markdown_text;
 }
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
 
 // https://khsmty.com/article/html2canvas-image-download/
 function downloadElAsPng() {
@@ -419,35 +534,82 @@ function downloadElAsPng() {
 
   html2canvas(el).then((canvasEl) => {
     const aEl = document.createElement("a");
-   /*  const img = new Image();
-    img.src = 'bg2_blackboard_man.jpg';
-    img.onload = function() {
-      //const canvas = document.getElementById('myCanvas');
-      //const ctx = canvas.getContext('2d');
-      //ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      const img = new Image();
-      img.src = 'bg2_blackboard_man.jpg';
-      img.onload = function() {
-        //const canvas = document.getElementById('myCanvas');
-        const canvas = canvasEl;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            
-        // Now you can safely call toDataURL on the canvas
-        try{
-          const dataURL = canvas.toDataURL();
-          console.log(dataURL);
-        }catch(e){
-          console.log('Maybe failed to read image.');
-        }
-      };
-    }; */
     aEl.href = canvasEl.toDataURL("image/png");
     aEl.download = "md_snapshot.png";
     aEl.click();
     }
   );
 };
+
+//Default values for the selected theme
+let theme = document.getElementById('theme').value;
+const inputs = document.querySelectorAll('input');
+
+// Set input form parameters, and reflect to innertext
+inputs.forEach(input => {
+  const inputName = input.name;
+  const v = theme_val(theme, inputName);
+  const prop = id2propname(inputName);
+  let e0;
+  let target_tag;
+  if(e0 = inputName.match("padding_(top|left)")){
+    target_tag = '';
+    console.log("#padding ",e0[0], v);
+    updateCSSProperty('main', id2propname(e0[0]), v+"px");
+  }else if(e0 = inputName.match("textv?align")){
+    console.log("align");
+  }else if(e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_")){
+    try{
+      target_tag = (typeof e0[1] === 'undefined') ? 'p' : (e0[1] == 'st') ? 'strong' : e0[1];
+    }catch(e){
+      console.log("What's wrong for input? ", input.innerText);
+      console.log(e0);
+    }
+    if (v !== undefined) {
+      console.log("id ", input.id, " name ", input.name, " prop ", prop, " v ", v);
+      if (input.type === "radio") {
+        if (input.value === v) {
+          input.checked = true;
+        }
+        let vv = input.id.match("_([a-zA-Z0-9]+)$")[1];
+        if(vv == v){
+          document.querySelectorAll(`#innertext ${target_tag}`).forEach((e1)=>{
+            try{
+              console.log(prop, e1.innerHTML);
+              e1.style[prop] = v;
+            }catch(er){
+              console.log(er)
+            }
+          })
+        }
+      } else if (input.type === "number" || input.type === "color" || input.type === "file") {
+       input.value = v;
+      }
+    }
+    updateCSSProperty('#innertext', prop, v);
+  }
+});
+/* Object.keys(vals['std']).forEach(
+  (k) => {
+    let v = theme_val(theme, k);
+    try{
+      const inputs = document.querySelectorAll(`#${formId} input`);
+
+inputs.forEach(input => {
+
+      if (input.type === "radio") {
+            if (input.value === defaultvals[inputName]) {
+                input.checked = true;
+            }
+        } else if (input.type === "number" || input.type === "color") {
+            input.value = defaultvals[inputName];
+        }
+      document.getElementById(k).value = v;
+      //console.log(`*** ${theme} ${k}: ${v}`)
+    }
+    catch(e){console.log("error: ", k,v,e)}
+  }
+); */
 </script>
 </body>
 </html>
