@@ -58,10 +58,6 @@ dt{
   -webkit-text-stroke-color: white;
 }
 .shadow h1 {
-color: red;
-/* font-family: "BIZ UDPGothic"!important; */
-font-family: "kirieji"!important;
-
 margin: 5px;
 font-size: 200px;
 line-height: 220px;
@@ -79,11 +75,9 @@ text-wrap: nowrap;
 -webkit-text-stroke-color: black;
 }
 .shadow h2 {
-color: red;
 font-size: 160px;
 /* font-family: "BIZ UDPGothic"!important; */
 /* font-family: "kirieji"!important; */
-
 line-height: 170px;
 margin: 3px;
 font-weight: bold;
@@ -92,10 +86,8 @@ text-shadow: 2px 2px 0px #fff, -5px -5px 0px #fff, -5px 5px 0px #fff, 5px -5px 0
 -webkit-text-stroke-color: black;
 }
 .shadow h3 {
-color: #ffa0a0;
 /* font-family: "BIZ UDPGothic"!important; */
 /* font-family: "kirieji"!important; */
-
 font-size: 90px;
 line-height: 100px;
 margin: 3px;
@@ -135,13 +127,11 @@ footer{
 </head>
 <body>
 <h1 class="pagetitle">Markdownいっぱつ画像化</h1>
-
-
 <h2 class="pagesection">設定</h2>  
 
 <!-- フォームを追加 -->
 <div>
-  <ul>
+  <dl>
     <dt>テーマ</dt>
     <dd>
       <select id="theme" name="theme">
@@ -171,28 +161,128 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 </textarea>
     </dd>
     <dt>テキストスタイル</dt>
+    <dd><details><dl>
+    <dt>標準:p</dt>
     <dd>
       <details>
-          <ul class="textsetting">
-            <li>サイズ：<input type="number" id="text_size"           value="50"      name="text_size" min="10" max="100">&nbsp;px</li>
-            <li>文字色：<input type="color"  id="text_color"          value="#000000" name="text_color"></li>
-            <li>太字　：<input type="radio"  id="text_weight_bold"    value="bold"    name="text_weight"> Yes 
-                        <input type="radio"  id="text_weight_normal"  value="normal"  name="text_weight" checked> No</li>
-            <li>斜体　：<input type="radio"  id="text_style_italic"   value="italic"  name="text_style"> Yes
-                        <input type="radio"  id="text_style_normal"   value="normal"  name="text_style" checked> No</li>
-            <li>縁　１：太さ&nbsp;<input type="number" id="text_t_e1" value="2"       name="text_t_e1" min="0">px; &nbsp;
-                        色&nbsp;<input type="color"    id="text_c_e1" value="#000000" name="text_c_e1"></li>
-            <li>縁　２：太さ&nbsp;<input type="number" id="text_t_e2" value="2"       name="text_t_e2" min="0">px; &nbsp;
-                        色&nbsp;<input type="color"    id="text_c_e2" value="#ffffff" name="text_c_e2"></li>
-          </ul>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="text_size"           value="50"      name="text_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="text_color"          value="#000000" name="text_color"></li>
+          <li>太字　：<input type="radio"  id="text_weight_bold"    value="bold"    name="text_weight"> Yes 
+                      <input type="radio"  id="text_weight_normal"  value="normal"  name="text_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="text_style_italic"   value="italic"  name="text_style"> Yes
+                      <input type="radio"  id="text_style_normal"   value="normal"  name="text_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="text_t_e1" value="2"       name="text_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="text_c_e1" value="#000000" name="text_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="text_t_e2" value="2"       name="text_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="text_c_e2" value="#ffffff" name="text_c_e2"></li>
+        </ul>
       </details>
     </dd>
-    <dt>H2テキストスタイル（大見出し）</dt>
+    <dt>大見出し:h2</dt>
     <dd>
+      <details>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="h2text_size"           value="50"      name="h2text_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="h2text_color"          value="#000000" name="h2text_color"></li>
+          <li>太字　：<input type="radio"  id="h2text_weight_bold"    value="bold"    name="h2text_weight"> Yes 
+                      <input type="radio"  id="h2text_weight_normal"  value="normal"  name="h2text_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="h2text_style_italic"   value="italic"  name="h2text_style"> Yes
+                      <input type="radio"  id="h2text_style_normal"   value="normal"  name="h2text_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="h2text_t_e1" value="2"       name="h2text_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="h2text_c_e1" value="#000000" name="h2text_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="h2text_t_e2" value="2"       name="h2text_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="h2text_c_e2" value="#ffffff" name="h2text_c_e2"></li>
+        </ul>
+      </details>
     </dd>
-    <dt>H3テキストスタイル（小見出し）</dt>
+    <dt>小見出し:h3</dt>
     <dd>
+      <details>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="h3text_size"           value="50"      name="h3text_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="h3text_color"          value="#000000" name="h3text_color"></li>
+          <li>太字　：<input type="radio"  id="h3text_weight_bold"    value="bold"    name="h3text_weight"> Yes 
+                      <input type="radio"  id="h3text_weight_normal"  value="normal"  name="h3text_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="h3text_style_italic"   value="italic"  name="h3text_style"> Yes
+                      <input type="radio"  id="h3text_style_normal"   value="normal"  name="h3text_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="h3text_t_e1" value="2"       name="h3text_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="h3text_c_e1" value="#000000" name="h3text_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="h3text_t_e2" value="2"       name="h3text_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="h3text_c_e2" value="#ffffff" name="h3text_c_e2"></li>
+        </ul>
+      </details>
     </dd>
+    <dt>重要:em</dt>
+    <dd>
+      <details>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="emtext_size"           value="50"      name="emtext_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="emtext_color"          value="#000000" name="emtext_color"></li>
+          <li>太字　：<input type="radio"  id="emtext_weight_bold"    value="bold"    name="emtext_weight"> Yes 
+                      <input type="radio"  id="emtext_weight_normal"  value="normal"  name="emtext_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="emtext_style_italic"   value="italic"  name="emtext_style"> Yes
+                      <input type="radio"  id="emtext_style_normal"   value="normal"  name="emtext_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="emtext_t_e1" value="2"       name="emtext_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="emtext_c_e1" value="#000000" name="emtext_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="emtext_t_e2" value="2"       name="emtext_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="emtext_c_e2" value="#ffffff" name="emtext_c_e2"></li>
+        </ul>
+      </details>
+    </dd>
+    <dt>強調:strong</dt>
+    <dd>
+      <details>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="sttext_size"           value="50"      name="sttext_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="sttext_color"          value="#000000" name="sttext_color"></li>
+          <li>太字　：<input type="radio"  id="sttext_weight_bold"    value="bold"    name="sttext_weight"> Yes 
+                      <input type="radio"  id="sttext_weight_normal"  value="normal"  name="sttext_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="sttext_style_italic"   value="italic"  name="sttext_style"> Yes
+                      <input type="radio"  id="sttext_style_normal"   value="normal"  name="sttext_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="sttext_t_e1" value="2"       name="sttext_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="sttext_c_e1" value="#000000" name="sttext_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="sttext_t_e2" value="2"       name="sttext_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="sttext_c_e2" value="#ffffff" name="sttext_c_e2"></li>
+        </ul>
+      </details>
+    </dd>
+    <dt>表見出し:th</dt>
+    <dd>
+      <details>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="thtext_size"           value="50"      name="thtext_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="thtext_color"          value="#000000" name="thtext_color"></li>
+          <li>太字　：<input type="radio"  id="thtext_weight_bold"    value="bold"    name="thtext_weight"> Yes 
+                      <input type="radio"  id="thtext_weight_normal"  value="normal"  name="thtext_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="thtext_style_italic"   value="italic"  name="thtext_style"> Yes
+                      <input type="radio"  id="thtext_style_normal"   value="normal"  name="thtext_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="thtext_t_e1" value="2"       name="thtext_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="thtext_c_e1" value="#000000" name="thtext_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="thtext_t_e2" value="2"       name="thtext_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="thtext_c_e2" value="#ffffff" name="sttext_c_e2"></li>
+        </ul>
+      </details>
+    </dd>
+    <dt>表データ:td</dt>
+    <dd>
+      <details>
+        <ul class="textsetting">
+          <li>サイズ：<input type="number" id="tdtext_size"           value="50"      name="tdtext_size" min="10" max="100">&nbsp;px</li>
+          <li>文字色：<input type="color"  id="tdtext_color"          value="#000000" name="tdtext_color"></li>
+          <li>太字　：<input type="radio"  id="tdtext_weight_bold"    value="bold"    name="tdtext_weight"> Yes 
+                      <input type="radio"  id="tdtext_weight_normal"  value="normal"  name="tdtext_weight" checked> No</li>
+          <li>斜体　：<input type="radio"  id="tdtext_style_italic"   value="italic"  name="tdtext_style"> Yes
+                      <input type="radio"  id="tdtext_style_normal"   value="normal"  name="tdtext_style" checked> No</li>
+          <li>縁　１：太さ&nbsp;<input type="number" id="tdtext_t_e1" value="2"       name="tdtext_t_e1" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="tdtext_c_e1" value="#000000" name="tdtext_c_e1"></li>
+          <li>縁　２：太さ&nbsp;<input type="number" id="tdtext_t_e2" value="2"       name="tdtext_t_e2" min="0">px; &nbsp;
+                      色&nbsp;<input type="color"    id="tdtext_c_e2" value="#ffffff" name="sttext_c_e2"></li>
+        </ul>
+      </details>
+    </dd>
+    </dl></details></dd>
+
     <dt>テキスト配置</dt>
     <dd>
       <div>
@@ -216,14 +306,14 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     </dd>
     <dd>
       <ul>
-        <li>top: <input type="number" id="padding_top"  name="padding_top"  value="100">px</li>
-        <li>left:<input type="number" id="padding_left" name="padding_left" value="100">px</li>
+        <li>top: <input type="number" id="padding_top"  name="padding_top"  value="0">px</li>
+        <li>left:<input type="number" id="padding_left" name="padding_left" value="0">px</li>
       </ul>
     </dd>
     <dt>背景画像選択</dt>
     <dd>  <input type="file" id="imageFile" accept="image/png, image/jpeg"></dd>
-  </ul>
-  <button id="update_button">更新・ダウンロード</button>
+  </dl>
+<!--  <button id="update_button">更新・ダウンロード</button> -->
   <button id="save_button">ダウンロード</button>
 
 </div>
@@ -237,7 +327,7 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 紛らわしい文字たち
 oO08 iIlL1 g9qCGQ ハバパヘベペ
 
-**bold** *italic*
+**strong** *em*
 
 |       | 1列目 | 2列目 | 3列目 |
 |-------|-------|-------|-------|
@@ -255,10 +345,25 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <script>
+
+/* // Canvas要素とコンテキストを取得
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+// Imageオブジェクトを作成し、Base64画像を設定
+const img = new Image();
+img.src = base64ImageData;
+
+// 画像が読み込まれたときにCanvasに描画
+img.onload = function() {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+};
+*/
+
   //// DEFAULT VALUES ////
-  const vals ={
+  let vals ={
+    '_':{}, // current setting
     std:{
       text_size:     '50',     // text font size [px]
       text_color:    '#000000',// text color
@@ -268,22 +373,22 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
       text_c_e1:     '#000000',// text stroke color
       text_t_e2:     '2',      // text shadow width
       text_c_e2:     '#ffffff',// text shadow color
-      h2text_size:   '50',     // text font size [px]
-      h2text_color:  '#000000',// text color
-      h2text_weight: 'normal', // normal or bold
-      h2text_style:  'normal', // normal or italic
-      h2text_t_e1:   '2',      // text stroke thickness
-      h2text_c_e1:   '#000000',// text stroke color
-      h2text_t_e2:   '2',      // text shadow width
-      h2text_c_e2:   '#ffffff',// text shadow color
-      h3text_size:   '50',     // text font size [px]
-      h3text_color:  '#000000',// text color
-      h3text_weight: 'normal', // normal or bold
-      h3text_style:  'normal', // normal or italic
-      h3text_t_e1:   '2',      // text stroke thickness
-      h3text_c_e1:   '#000000',// text stroke color
-      h3text_t_e2:   '2',      // text shadow width
-      h3text_c_e2:   '#ffffff',// text shadow color
+      h2text_size:   '50',     // h2 text font size [px]
+      h2text_color:  '#ff0000',// h2 text color
+      h2text_weight: 'normal', // h2 normal or bold
+      h2text_style:  'normal', // h2 normal or italic
+      h2text_t_e1:   '2',      // h2 text stroke thickness
+      h2text_c_e1:   '#000000',// h2 text stroke color
+      h2text_t_e2:   '2',      // h2 text shadow width
+      h2text_c_e2:   '#ffffff',// h2 text shadow color
+      h3text_size:   '50',     // h3 text font size [px]
+      h3text_color:  '#ffa0a0',// h3 text color
+      h3text_weight: 'normal', // h3 normal or bold
+      h3text_style:  'normal', // h3 normal or italic
+      h3text_t_e1:   '2',      // h3 text stroke thickness
+      h3text_c_e1:   '#000000',// h3 text stroke color
+      h3text_t_e2:   '2',      // h3 text shadow width
+      h3text_c_e2:   '#ffffff',// h3 text shadow color
       emtext_size:   '50',     // empahasized(em) text font size [px]
       emtext_color:  '#000000',// empahasized(em) text color
       emtext_weight: 'normal', // empahasized(em) normal or bold
@@ -324,10 +429,15 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
       imagefile:     ''        // background image file name (jpeg/png)
     },
     black_board_man:{
-      text_color:  '#ffff00',
-      text_size:   '70',
-      text_weight: 'bold',
-      padding_left:  '100'
+      text_color:    '#ffff00',
+      text_size:     '70',
+      text_weight:   'normal',
+      emtext_color:  '#ff0000',
+      emtext_style:  'normal',
+      sttext_color:  '#ffff00',
+      sttext_weight: 'bold',
+      padding_left:  '120',
+      padding_top:   '130'
     }
   };
   //// END of DEFAULT VALUES ////
@@ -377,11 +487,13 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
   }
 
   // すべての要素に対して指定されたCSSプロパティを更新
-  function updateCSSProperty(selector, property, value) {
+  function updateCSSProperty(selector, property, value, value0, param) {
     const elements = document.querySelectorAll(selector);  
     elements.forEach(element => {
-        element.style[property] = value;
+      element.style[property] = value;
     });
+    vals['_'][param] = value0;
+    console.log('update: ', param, value0);
   }
 
   // テキスト入力欄を空に
@@ -395,8 +507,20 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
   });
 
   // form 変更反映
-  let csssel   = {text:"#innertext p", h2text:"#innertext h2", h3text:"#innertext h3", em:"#innertext em", strong:"#innertext strong"};
-  ["text"].map(
+  let csssel = {text:"#innertext p", h2text:"#innertext h2", h3text:"#innertext h3", em:"#innertext em", strong:"#innertext strong", tdtext:"#innertext td", thtext:"#innertext th"};
+
+  // theme
+  let theme_select = document.getElementById('theme');
+  let        theme = theme_select.value;
+
+  // ユーザーが選択肢を変更するたびにthemeを更新する
+  theme_select.addEventListener("change", function() {
+    theme = this.value;
+    init_by_theme(theme);
+  });
+
+  // *text
+  ["text","h2text","h3text","emtext","sttext","thtext","tdtext"].map(
   // **bold** -> <strong>bold</strong> font-weight: bold
   // *italic* -> <em>italic</em>       font-style: italic
     (target) => {
@@ -413,8 +537,7 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
                      : p.match("t_e2")  ? ["textShadow", ((std_v[t_e2]=p_val), shadow_val(std_v[t_e2], std_v[c_e2]))]
                      : p.match("color") ? ["color" , p_val]
                      : p.match("size")  ? ["fontSize", p_val+"px"] :[];
-            updateCSSProperty(csssel[target], prop[0], prop[1]);
-            console.log("chg ", eventtype, target, prop[0], prop[1]);
+            updateCSSProperty(csssel[target], prop[0], prop[1], p_val, p);
           });
         } // p0
       ); // map for color size etc.
@@ -425,22 +548,21 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
           document.querySelectorAll(`input[name="${p}"]`).forEach(function(radio) {
             radio.addEventListener('change', function() {
               let prop = (p0=="weight") ? "fontWeight" : "fontStyle";
-              updateCSSProperty(csssel[target], prop, this.value);
+              updateCSSProperty(csssel[target], prop, this.value, this.value, p);
             });    
           });
         });
     } // target
   );
 
-  document.querySelectorAll('input[name="text_align"]').forEach(function(radio) {
+  document.querySelectorAll('input[name="textalign"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
-      updateCSSProperty('main', 'textAlign', this.value);
+      updateCSSProperty('#innertext', 'textAlign', this.value, this.value, 'textalign');
     });
   });
-  document.querySelectorAll('input[name="text_valign"]').forEach(function(radio) {
+  document.querySelectorAll('input[name="textvalign"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
       const innertext = document.querySelector('#innertext');
-      console.log("valign ", this.value);
       // main.offsetHeight が1006のはず。
       //innertext.style.vertical_align = this.value;
       var targetDiv = document.getElementById("innertext");
@@ -483,6 +605,7 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     var htmltxt = md.render(textInput);
     let innertext = document.getElementById('innertext');
     innertext.innerHTML = htmltxt;
+    init_by_theme('_');
   }); //document.getElementById('#textarea')
 
   document.getElementById('imageFile').addEventListener('change', function(event) {
@@ -490,13 +613,19 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
     if (file) {
       const reader = new FileReader();
       reader.onloadend = function() {
-        const base64String = reader.result;
+        let base64String = reader.result;
         const main = document.querySelector('main');
         main.style.backgroundImage = `url(${base64String})`;
       };
       reader.readAsDataURL(file);
     }
   });
+
+  function set_bgimage(base64String){
+    //const base64String = reader.result;
+    const main = document.querySelector('main');
+    main.style.backgroundImage = `url(${base64String})`;  
+  }
 
   document.getElementById('theme').addEventListener('change', function(event) {
 
@@ -542,74 +671,64 @@ function downloadElAsPng() {
 };
 
 //Default values for the selected theme
-let theme = document.getElementById('theme').value;
 const inputs = document.querySelectorAll('input');
 
 // Set input form parameters, and reflect to innertext
-inputs.forEach(input => {
-  const inputName = input.name;
-  const v = theme_val(theme, inputName);
-  const prop = id2propname(inputName);
-  let e0;
-  let target_tag;
-  if(e0 = inputName.match("padding_(top|left)")){
-    target_tag = '';
-    console.log("#padding ",e0[0], v);
-    updateCSSProperty('main', id2propname(e0[0]), v+"px");
-  }else if(e0 = inputName.match("textv?align")){
-    console.log("align");
-  }else if(e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_")){
-    try{
-      target_tag = (typeof e0[1] === 'undefined') ? 'p' : (e0[1] == 'st') ? 'strong' : e0[1];
-    }catch(e){
-      console.log("What's wrong for input? ", input.innerText);
-      console.log(e0);
-    }
-    if (v !== undefined) {
-      console.log("id ", input.id, " name ", input.name, " prop ", prop, " v ", v);
-      if (input.type === "radio") {
-        if (input.value === v) {
-          input.checked = true;
-        }
-        let vv = input.id.match("_([a-zA-Z0-9]+)$")[1];
-        if(vv == v){
-          document.querySelectorAll(`#innertext ${target_tag}`).forEach((e1)=>{
-            try{
-              console.log(prop, e1.innerHTML);
-              e1.style[prop] = v;
-            }catch(er){
-              console.log(er)
-            }
-          })
-        }
-      } else if (input.type === "number" || input.type === "color" || input.type === "file") {
-       input.value = v;
+function init_by_theme(t){
+  inputs.forEach(input => {
+    const inputName = input.name;
+    const v = theme_val(t, inputName);
+    const prop = id2propname(inputName);
+    let e0;
+    let target_tag = '';
+    if(e0 = inputName.match("padding_(top|left)")){
+      input.value = v;
+      updateCSSProperty('#innertext', id2propname(e0[0]), v+"px", v, inputName);
+    }else if(e0 = inputName.match("textv?align")){
+      if (input.value === v) {
+            input.checked = true;
       }
-    }
-    updateCSSProperty('#innertext', prop, v);
-  }
-});
-/* Object.keys(vals['std']).forEach(
-  (k) => {
-    let v = theme_val(theme, k);
-    try{
-      const inputs = document.querySelectorAll(`#${formId} input`);
-
-inputs.forEach(input => {
-
-      if (input.type === "radio") {
-            if (input.value === defaultvals[inputName]) {
-                input.checked = true;
-            }
-        } else if (input.type === "number" || input.type === "color") {
-            input.value = defaultvals[inputName];
+      let vv = input.id.match("([a-zA-Z]+)_align$")[1]; //left,center,right,top,middle,bottom
+      if(vv == v){
+        document.querySelectorAll('#innertext').forEach((e1)=>{
+          try{
+            e1.style[prop] = v;
+          }catch(er){
+            console.log(er)
+          }
+        })
+      }
+    }else if(e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_")){
+      try{
+        target_tag = (typeof e0[1] === 'undefined') ? 'p' : (e0[1] == 'st') ? 'strong' : e0[1];
+      }catch(e){
+        console.log(e, e0);
+      }
+      if (v !== undefined) {
+        if (input.type === "radio") {
+          if (input.value === v) {
+            input.checked = true;
+          }
+          let vv = input.id.match("_([a-zA-Z0-9]+)$")[1];
+          if(vv == v){
+            document.querySelectorAll(`#innertext ${target_tag}`).forEach((e1)=>{
+              try{
+                e1.style[prop] = v;
+              }catch(er){
+                console.log(er)
+              }
+            })
+          }
+        } else if (input.type === "number" || input.type === "color" || input.type === "file") {
+          input.value = v;
         }
-      document.getElementById(k).value = v;
-      //console.log(`*** ${theme} ${k}: ${v}`)
-    }
-    catch(e){console.log("error: ", k,v,e)}
-  }
-); */
+      }
+      updateCSSProperty(`#innertext ${target_tag}`, prop, v, v, inputName);
+    } // if (e0 = ...)
+  });
+}
+init_by_theme(theme);
+
 </script>
 </body>
 </html>
