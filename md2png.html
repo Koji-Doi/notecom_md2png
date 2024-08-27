@@ -54,6 +54,7 @@ dt{
 }
 .shadow {
   font-size: 50px;
+  line-height: 1.5;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
 }
@@ -78,7 +79,7 @@ text-wrap: nowrap;
 font-size: 160px;
 /* font-family: "BIZ UDPGothic"!important; */
 /* font-family: "kirieji"!important; */
-line-height: 170px;
+line-height: 1.5em; /*170px;*/
 margin: 3px;
 font-weight: bold;
 text-shadow: 2px 2px 0px #fff, -5px -5px 0px #fff, -5px 5px 0px #fff, 5px -5px 0px #fff, 5px 0px 0px #fff, -5px 0px 0px #fff, 0px 5px 0px #fff, 0px -5px 0px #fff;
@@ -89,7 +90,7 @@ text-shadow: 2px 2px 0px #fff, -5px -5px 0px #fff, -5px 5px 0px #fff, 5px -5px 0
 /* font-family: "BIZ UDPGothic"!important; */
 /* font-family: "kirieji"!important; */
 font-size: 90px;
-line-height: 100px;
+line-height: 1.5em; /* 100px; */
 margin: 3px;
 font-weight: bold;
 text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0px #fff, 2px 0px 0px #fff, -2px 0px 0px #fff, 0px 2px 0px #fff, 0px -2px 0px #fff;
@@ -140,6 +141,7 @@ footer{
 
       </select>      
     </dd>
+
     <dt>markdownテキスト</dt>
     <dd>
       <button id="clear_button">テキストをリセット</button>
@@ -310,8 +312,18 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
         <li>left:<input type="number" id="padding_left" name="padding_left" value="0">px</li>
       </ul>
     </dd>
-    <dt>背景画像選択</dt>
-    <dd>  <input type="file" id="imageFile" accept="image/png, image/jpeg"></dd>
+    <dt title="ユーザー背景画像設定の方が優先されます">既定背景画像</dt>
+    <select id="bgimage_pre" name="bgimage_pre">
+      <option value="baloon1">吹き出しと少女１</option>
+      <option value="baloon2">吹き出しと少女２</option>
+      <option value="blackboard">黒板と男性</option>
+      <option value="computerwork">PCワーク</option>
+      <option value="flower">花枠</option>
+      <option value="nature">自然</option>
+      <option value="plant">植物</option>
+    </select>
+    <dt>ユーザー背景画像</dt>
+    <dd>  <input type="file" id="bgimage_users" accept="image/png, image/jpeg" name="bgimage_users"></dd>
   </dl>
 <!--  <button id="update_button">更新・ダウンロード</button> -->
   <button id="save_button">ダウンロード</button>
@@ -345,22 +357,8 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="srcimg.js"></script>
 <script>
-
-/* // Canvas要素とコンテキストを取得
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
-
-// Imageオブジェクトを作成し、Base64画像を設定
-const img = new Image();
-img.src = base64ImageData;
-
-// 画像が読み込まれたときにCanvasに描画
-img.onload = function() {
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-};
-*/
-
   //// DEFAULT VALUES ////
   let vals ={
     '_':{}, // current setting
@@ -406,12 +404,12 @@ img.onload = function() {
       sttext_t_e2:   '2',      // strong text shadow width
       sttext_c_e2:   '#ffffff',// strong text shadow color
       thtext_size:   '50',     // header cell (th) text font size [px]
-      thtext_color:  '#000000',// header cell (th) text color
-      thtext_weight: 'normal', // header cell (th) normal or bold
+      thtext_color:  '#ffffff',// header cell (th) text color
+      thtext_weight: 'bold',   // header cell (th) normal or bold
       thtext_style:  'normal', // header cell (th) normal or italic
-      thtext_t_e1:   '2',      // header cell (th) text stroke thickness
-      thtext_c_e1:   '#000000',// header cell (th) text stroke color
-      thtext_t_e2:   '2',      // header cell (th) text shadow width
+      thtext_t_e1:   '5',      // header cell (th) text stroke thickness
+      thtext_c_e1:   '#ff0000',// header cell (th) text stroke color
+      thtext_t_e2:   '5',      // header cell (th) text shadow width
       thtext_c_e2:   '#ffffff',// header cell (th) text shadow color
       tdtext_size:   '50',     // cell (td) text font size [px]
       tdtext_color:  '#000000',// cell (td) text color
@@ -426,9 +424,15 @@ img.onload = function() {
       textvalign:    'top',    // text vertical align
       padding_left:  '0',      // left padding [px]
       padding_top:   '0',      // top padding [px]
-      imagefile:     ''        // background image file name (jpeg/png)
+      prebgimg:      'plant',  // preloaded background image
+      bgimage_users: undefined,// background image file name (jpeg/png)
+      bgimage_pre:   'plant'   // preset background images (baloon1, baloon2, blackboard, computerwork, flower, nature, or plant)
+    },
+    baloon1: {
+      bgimage_pre:   'baloon1' 
     },
     black_board_man:{
+      bgimage_pre:   'blackboard', 
       text_color:    '#ffff00',
       text_size:     '70',
       text_weight:   'normal',
@@ -441,7 +445,7 @@ img.onload = function() {
     }
   };
   //// END of DEFAULT VALUES ////
-
+  console.clear();
   // standard theme = 'std'
   let std_v = vals['std'];
 
@@ -452,11 +456,7 @@ img.onload = function() {
     if(!(theme in vals)){
       return(undefined);
     }
-    if(propname in vals[theme]){
-      return(vals[theme][propname]);
-    }else{
-      return(vals['std'][propname]);
-    }
+    return(vals[(propname in vals[theme]) ? theme : 'std'][propname]);
   }
 
   function shadow_val(t, c){
@@ -472,18 +472,20 @@ img.onload = function() {
   }
 
   function id2propname(id){
-    return(id.match("c_e1")         ? "-webkit-text-stroke-color"
-         : id.match("t_e1")         ? "-webkit-text-stroke-width"
-         : id.match("c_e2")         ? "textShadow"
-         : id.match("t_e2")         ? "textShadow"
-         : id.match("color")        ? "color"
-         : id.match("size")         ? "fontSize" 
-         : id.match("weight")       ? "fontWeight" 
-         : id.match("style")        ? "fontStyle"
-         : id.match("valign")       ? "verticalAlign"
-         : id.match("align")        ? "textAlign"
-         : id.match("padding_top")  ? "paddingTop"
-         : id.match("padding_left") ? "paddingLeft" : '');
+    return(id.match("c_e1")          ? "-webkit-text-stroke-color"
+         : id.match("t_e1")          ? "-webkit-text-stroke-width"
+         : id.match("c_e2")          ? "textShadow"
+         : id.match("t_e2")          ? "textShadow"
+         : id.match("color")         ? "color"
+         : id.match("size")          ? "fontSize" 
+         : id.match("weight")        ? "fontWeight" 
+         : id.match("style")         ? "fontStyle"
+         : id.match("valign")        ? "verticalAlign"
+         : id.match("align")         ? "textAlign"
+         : id.match("padding_top")   ? "paddingTop"
+         : id.match("bgimage_pre")   ? "backgroundImage"
+         : id.match("bgimage_users") ? "backgroundImage"
+         : id.match("padding_left")  ? "paddingLeft" : '');
   }
 
   // すべての要素に対して指定されたCSSプロパティを更新
@@ -493,7 +495,6 @@ img.onload = function() {
       element.style[property] = value;
     });
     vals['_'][param] = value0;
-    console.log('update: ', param, value0);
   }
 
   // テキスト入力欄を空に
@@ -555,24 +556,38 @@ img.onload = function() {
     } // target
   );
 
-  document.querySelectorAll('input[name="textalign"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      updateCSSProperty('#innertext', 'textAlign', this.value, this.value, 'textalign');
+  ['textalign', 'textvalign'].forEach((k) => {
+    document.querySelectorAll(`input[name="${k}"]`).forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        updateCSSProperty('#innertext', id2propname(k), this.value, this.value, k);
+      });
     });
   });
-  document.querySelectorAll('input[name="textvalign"]').forEach(function(radio) {
+
+  /* document.querySelectorAll('input[name="textvalign"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
-      const innertext = document.querySelector('#innertext');
+      //const innertext = document.querySelector('#innertext');
       // main.offsetHeight が1006のはず。
       //innertext.style.vertical_align = this.value;
-      var targetDiv = document.getElementById("innertext");
+      //var targetDiv = document.getElementById("innertext");
       if (targetDiv) {
-        targetDiv.style.display = "table-cell";
-        targetDiv.style.verticalAlign = this.value;
+        //updateCSSProperty('#innertext', 'display',   'table-cell', 'table-cell',  'display');
+        updateCSSProperty('#innertext', 'textAlign', this.value, this.value, 'textalign');
+        //targetDiv.style.display       = "table-cell";
+        //targetDiv.style.verticalAlign = this.value;
       }
     });
+  }); */
+  ['padding_top', 'padding_left'].forEach( (k) => {
+    document.querySelectorAll(`input[name="${k}"]`).forEach(function(event) {
+      event.addEventListener('change', function() {
+        let v  = document.getElementById(k).value;
+        document.querySelector("#innertext").style[`${id2propname(k)}`] = v+"px";
+        vals['_'][k] = v;
+      });
+    });
   });
-  document.querySelectorAll('input[name="padding_top"]').forEach(function(radio) {
+/*   document.querySelectorAll('input[name="padding_top"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
       let padding_top = document.getElementById('padding_top').value;
       document.querySelector("#innertext").style.paddingTop = padding_top+"px";
@@ -584,7 +599,7 @@ img.onload = function() {
       document.querySelector("#innertext").style.paddingLeft = padding_left+"px";
     });
   });
-
+ */
   document.getElementById('textarea').addEventListener('change', function() {
     // テキスト入力フォームの内容を取得
     var textInput = document.getElementById('textarea').value;
@@ -608,16 +623,30 @@ img.onload = function() {
     init_by_theme('_');
   }); //document.getElementById('#textarea')
 
-  document.getElementById('imageFile').addEventListener('change', function(event) {
+  // 既設backgroundimageのどれかを選ぶ。ユーザー画像が選択されていたらそちらを優先
+  document.getElementById('bgimage_pre').addEventListener('change', function(event){
+    if(typeof vals['_']['bgimage_users'] === "undefined"){
+      console.log("set preloaded image.", this.value);
+      vals['_']['bgimage_pre'] = this.value;
+      set_bgimage(srcimg[this.value]);
+    }else{
+      console.log('user image already set');
+    }
+  });
+
+  // 背景画像のユーザー選択
+  document.getElementById('bgimage_users').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = function() {
-        let base64String = reader.result;
-        const main = document.querySelector('main');
-        main.style.backgroundImage = `url(${base64String})`;
+        //let base64String = reader.result;
+        //const main = document.querySelector('main');
+        //main.style.backgroundImage = `url(${base64String})`;
+        set_bgimage(reader.result);
       };
       reader.readAsDataURL(file);
+      vals['_']['bgimage_users'] = file;
     }
   });
 
@@ -626,10 +655,6 @@ img.onload = function() {
     const main = document.querySelector('main');
     main.style.backgroundImage = `url(${base64String})`;  
   }
-
-  document.getElementById('theme').addEventListener('change', function(event) {
-
-  });
 
 // マークダウンの基本設定
 
@@ -671,14 +696,17 @@ function downloadElAsPng() {
 };
 
 //Default values for the selected theme
-const inputs = document.querySelectorAll('input');
+const inputs = document.querySelectorAll('input,select');
 
-// Set input form parameters, and reflect to innertext
+// Set input form parameters, and reflect to innertext or main
 function init_by_theme(t){
   inputs.forEach(input => {
     const inputName = input.name;
-    const v = theme_val(t, inputName);
-    const prop = id2propname(inputName);
+    if(inputName=="theme"){
+      return;
+    }
+    let v = theme_val(t, inputName);
+    let prop = id2propname(inputName);
     let e0;
     let target_tag = '';
     if(e0 = inputName.match("padding_(top|left)")){
@@ -698,6 +726,14 @@ function init_by_theme(t){
           }
         })
       }
+    }else if(e0 = inputName.match("bgimage_pre")){
+      console.log("check bgimage_pre on theme:", theme);
+      set_bgimage(srcimg[v]);
+      vals[t][inputName] = v;
+    //  updateCSSProperty('main', prop, v, v, inputName);
+    }else if(e0 = inputName.match("bgimage_users")){ 
+      console.log("check bgimage_users on theme:", theme);
+      updateCSSProperty('main', prop, v, v, inputName);
     }else if(e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_")){
       try{
         target_tag = (typeof e0[1] === 'undefined') ? 'p' : (e0[1] == 'st') ? 'strong' : e0[1];
@@ -728,7 +764,6 @@ function init_by_theme(t){
   });
 }
 init_by_theme(theme);
-
 </script>
 </body>
 </html>
