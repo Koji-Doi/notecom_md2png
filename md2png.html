@@ -76,12 +76,12 @@ text-wrap: nowrap;
 -webkit-text-stroke-color: black;
 }
 .shadow h2 {
-font-size: 160px;
+/* font-size: 160px; */
 /* font-family: "BIZ UDPGothic"!important; */
 /* font-family: "kirieji"!important; */
 line-height: 1.5em; /*170px;*/
 margin: 3px;
-font-weight: bold;
+/* font-weight: bold; */
 text-shadow: 2px 2px 0px #fff, -5px -5px 0px #fff, -5px 5px 0px #fff, 5px -5px 0px #fff, 5px 0px 0px #fff, -5px 0px 0px #fff, 0px 5px 0px #fff, 0px -5px 0px #fff;
 -webkit-text-stroke-width: 5px;
 -webkit-text-stroke-color: black;
@@ -89,7 +89,7 @@ text-shadow: 2px 2px 0px #fff, -5px -5px 0px #fff, -5px 5px 0px #fff, 5px -5px 0
 .shadow h3 {
 /* font-family: "BIZ UDPGothic"!important; */
 /* font-family: "kirieji"!important; */
-font-size: 90px;
+/* font-size: 90px; */
 line-height: 1.5em; /* 100px; */
 margin: 3px;
 font-weight: bold;
@@ -137,7 +137,7 @@ footer{
     <dd>
       <select id="theme" name="theme">
         <option value="std">標準</option>
-        <option value="black_board_man" selected>黒板と男性イメージ</option>
+        <option value="black_board_man">黒板と男性イメージ</option>
 
       </select>      
     </dd>
@@ -149,17 +149,13 @@ footer{
 ### 文字入りの画像は
 ## 目立つ！
 
-紛らわしい文字たち
-oO08 iIlL1 g9qCGQ ハバパヘベペ
-
-**bold** *italic*
+**strong** *em*
  
 |       | 1列目 | 2列目 | 3列目 |
 |-------|-------|-------|-------|
 | 1行目 | 1-1   | 1-2   | 1-3   |
 | 2行目 | 2-1   | 2-2   | 2-3   |
 
-***fontname***
 </textarea>
     </dd>
     <dt>テキストスタイル</dt>
@@ -312,16 +308,21 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
         <li>left:<input type="number" id="padding_left" name="padding_left" value="0">px</li>
       </ul>
     </dd>
+    <dt title="背景画像設定の方が優先されます">背景色</dt>
+    <dd><input type="color" id="bgcolor" name="bgcolor"></dd>
     <dt title="ユーザー背景画像設定の方が優先されます">既定背景画像</dt>
-    <select id="bgimage_pre" name="bgimage_pre">
-      <option value="baloon1">吹き出しと少女１</option>
-      <option value="baloon2">吹き出しと少女２</option>
-      <option value="blackboard">黒板と男性</option>
-      <option value="computerwork">PCワーク</option>
-      <option value="flower">花枠</option>
-      <option value="nature">自然</option>
-      <option value="plant">植物</option>
-    </select>
+    <dd>
+      <select id="bgimage_pre" name="bgimage_pre">
+        <option value="">無設定</option>
+        <option value="baloon1">吹き出しと少女１</option>
+        <option value="baloon2">吹き出しと少女２</option>
+        <option value="blackboard">黒板と男性</option>
+        <option value="computerwork">PCワーク</option>
+        <option value="flower">花枠</option>
+        <option value="nature">自然</option>
+        <option value="plant">植物</option>
+      </select>  
+    </dd>
     <dt>ユーザー背景画像</dt>
     <dd>  <input type="file" id="bgimage_users" accept="image/png, image/jpeg" name="bgimage_users"></dd>
   </dl>
@@ -335,9 +336,6 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 <div id="innertext" class="l-main-editer js-markdown-editer">
 ### 文字入りの画像は
 ## 目立つ！
-
-紛らわしい文字たち
-oO08 iIlL1 g9qCGQ ハバパヘベペ
 
 **strong** *em*
 
@@ -358,412 +356,7 @@ oO08 iIlL1 g9qCGQ ハバパヘベペ
 <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="srcimg.js"></script>
-<script>
-  //// DEFAULT VALUES ////
-  let vals ={
-    '_':{}, // current setting
-    std:{
-      text_size:     '50',     // text font size [px]
-      text_color:    '#000000',// text color
-      text_weight:   'normal', // normal or bold
-      text_style:    'normal', // normal or italic
-      text_t_e1:     '2',      // text stroke thickness
-      text_c_e1:     '#000000',// text stroke color
-      text_t_e2:     '2',      // text shadow width
-      text_c_e2:     '#ffffff',// text shadow color
-      h2text_size:   '50',     // h2 text font size [px]
-      h2text_color:  '#ff0000',// h2 text color
-      h2text_weight: 'normal', // h2 normal or bold
-      h2text_style:  'normal', // h2 normal or italic
-      h2text_t_e1:   '2',      // h2 text stroke thickness
-      h2text_c_e1:   '#000000',// h2 text stroke color
-      h2text_t_e2:   '2',      // h2 text shadow width
-      h2text_c_e2:   '#ffffff',// h2 text shadow color
-      h3text_size:   '50',     // h3 text font size [px]
-      h3text_color:  '#ffa0a0',// h3 text color
-      h3text_weight: 'normal', // h3 normal or bold
-      h3text_style:  'normal', // h3 normal or italic
-      h3text_t_e1:   '2',      // h3 text stroke thickness
-      h3text_c_e1:   '#000000',// h3 text stroke color
-      h3text_t_e2:   '2',      // h3 text shadow width
-      h3text_c_e2:   '#ffffff',// h3 text shadow color
-      emtext_size:   '50',     // empahasized(em) text font size [px]
-      emtext_color:  '#000000',// empahasized(em) text color
-      emtext_weight: 'normal', // empahasized(em) normal or bold
-      emtext_style:  'normal', // empahasized(em) normal or italic
-      emtext_t_e1:   '2',      // empahasized(em) text stroke thickness
-      emtext_c_e1:   '#000000',// empahasized(em) text stroke color
-      emtext_t_e2:   '2',      // empahasized(em) text shadow width
-      emtext_c_e2:   '#ffffff',// empahasized(em) text shadow color
-      sttext_size:   '50',     // strong text font size [px]
-      sttext_color:  '#000000',// strong text color
-      sttext_weight: 'normal', // strong normal or bold
-      sttext_style:  'normal', // strong normal or italic
-      sttext_t_e1:   '2',      // strong text stroke thickness
-      sttext_c_e1:   '#000000',// strong text stroke color
-      sttext_t_e2:   '2',      // strong text shadow width
-      sttext_c_e2:   '#ffffff',// strong text shadow color
-      thtext_size:   '50',     // header cell (th) text font size [px]
-      thtext_color:  '#ffffff',// header cell (th) text color
-      thtext_weight: 'bold',   // header cell (th) normal or bold
-      thtext_style:  'normal', // header cell (th) normal or italic
-      thtext_t_e1:   '5',      // header cell (th) text stroke thickness
-      thtext_c_e1:   '#ff0000',// header cell (th) text stroke color
-      thtext_t_e2:   '5',      // header cell (th) text shadow width
-      thtext_c_e2:   '#ffffff',// header cell (th) text shadow color
-      tdtext_size:   '50',     // cell (td) text font size [px]
-      tdtext_color:  '#000000',// cell (td) text color
-      tdtext_weight: 'normal', // cell (td) normal or bold
-      tdtext_style:  'normal', // cell (td) normal or italic
-      tdtext_t_e1:   '2',      // cell (td) text stroke thickness
-      tdtext_c_e1:   '#000000',// cell (td) text stroke color
-      tdtext_t_e2:   '2',      // cell (td) text shadow width
-      tdtext_c_e2:   '#ffffff',// cell (td) text shadow color
-
-      textalign:     'left',   // text horizontal align
-      textvalign:    'top',    // text vertical align
-      padding_left:  '0',      // left padding [px]
-      padding_top:   '0',      // top padding [px]
-      prebgimg:      'plant',  // preloaded background image
-      bgimage_users: undefined,// background image file name (jpeg/png)
-      bgimage_pre:   'plant'   // preset background images (baloon1, baloon2, blackboard, computerwork, flower, nature, or plant)
-    },
-    baloon1: {
-      bgimage_pre:   'baloon1' 
-    },
-    black_board_man:{
-      bgimage_pre:   'blackboard', 
-      text_color:    '#ffff00',
-      text_size:     '70',
-      text_weight:   'normal',
-      emtext_color:  '#ff0000',
-      emtext_style:  'normal',
-      sttext_color:  '#ffff00',
-      sttext_weight: 'bold',
-      padding_left:  '120',
-      padding_top:   '130'
-    }
-  };
-  //// END of DEFAULT VALUES ////
-  console.clear();
-  // standard theme = 'std'
-  let std_v = vals['std'];
-
-  function theme_val(theme, propname){
-    if(typeof theme =="undefined"){
-      theme = 'std';
-    }
-    if(!(theme in vals)){
-      return(undefined);
-    }
-    return(vals[(propname in vals[theme]) ? theme : 'std'][propname]);
-  }
-
-  function shadow_val(t, c){
-    t = t.replace(/(\d+)$/, '$1px');
-    return( `${t}  ${t} 0 ${c}, `
-         + `-${t} -${t} 0 ${c}, `
-         + `-${t}  ${t} 0 ${c}, `
-         + ` ${t} -${t} 0 ${c}, `
-         + ` ${t}  0    0 ${c}, `
-         + `-${t}  0    0 ${c}, `
-         + ` 0     ${t} 0 ${c}, `
-         + ` 0    -${t} 0 ${c}`);
-  }
-
-  function id2propname(id){
-    return(id.match("c_e1")          ? "-webkit-text-stroke-color"
-         : id.match("t_e1")          ? "-webkit-text-stroke-width"
-         : id.match("c_e2")          ? "textShadow"
-         : id.match("t_e2")          ? "textShadow"
-         : id.match("color")         ? "color"
-         : id.match("size")          ? "fontSize" 
-         : id.match("weight")        ? "fontWeight" 
-         : id.match("style")         ? "fontStyle"
-         : id.match("valign")        ? "verticalAlign"
-         : id.match("align")         ? "textAlign"
-         : id.match("padding_top")   ? "paddingTop"
-         : id.match("bgimage_pre")   ? "backgroundImage"
-         : id.match("bgimage_users") ? "backgroundImage"
-         : id.match("padding_left")  ? "paddingLeft" : '');
-  }
-
-  // すべての要素に対して指定されたCSSプロパティを更新
-  function updateCSSProperty(selector, property, value, value0, param) {
-    const elements = document.querySelectorAll(selector);  
-    elements.forEach(element => {
-      element.style[property] = value;
-    });
-    vals['_'][param] = value0;
-  }
-
-  // テキスト入力欄を空に
-  document.getElementById('clear_button').addEventListener('click', function() {
-    document.getElementById('textarea').value = "";
-  });
-
-  // make png file
-  document.getElementById('save_button').addEventListener('click', function() {
-    downloadElAsPng();
-  });
-
-  // form 変更反映
-  let csssel = {text:"#innertext p", h2text:"#innertext h2", h3text:"#innertext h3", em:"#innertext em", strong:"#innertext strong", tdtext:"#innertext td", thtext:"#innertext th"};
-
-  // theme
-  let theme_select = document.getElementById('theme');
-  let        theme = theme_select.value;
-
-  // ユーザーが選択肢を変更するたびにthemeを更新する
-  theme_select.addEventListener("change", function() {
-    theme = this.value;
-    init_by_theme(theme);
-  });
-
-  // *text
-  ["text","h2text","h3text","emtext","sttext","thtext","tdtext"].map(
-  // **bold** -> <strong>bold</strong> font-weight: bold
-  // *italic* -> <em>italic</em>       font-style: italic
-    (target) => {
-      ["color","size","c_e1","t_e1","c_e2","t_e2"].map(
-        (p0) => {
-          let p = target + "_" + p0;
-          document.getElementById(p).addEventListener('change', function(){
-            let p_val = document.getElementById(p).value;
-            let t_e2  = target + "_t_e2";
-            let c_e2  = target + "_c_e2";
-            let prop = p.match("c_e1")  ? ["-webkit-text-stroke-color", p_val] 
-                     : p.match("t_e1")  ? ["-webkit-text-stroke-width", p_val+"px"]
-                     : p.match("c_e2")  ? ["textShadow", ((std_v[c_e2]=p_val), shadow_val(std_v[t_e2], std_v[c_e2]))]
-                     : p.match("t_e2")  ? ["textShadow", ((std_v[t_e2]=p_val), shadow_val(std_v[t_e2], std_v[c_e2]))]
-                     : p.match("color") ? ["color" , p_val]
-                     : p.match("size")  ? ["fontSize", p_val+"px"] :[];
-            updateCSSProperty(csssel[target], prop[0], prop[1], p_val, p);
-          });
-        } // p0
-      ); // map for color size etc.
-
-      ["weight","style"].map(
-        (p0) => {
-          let p = target + "_" + p0;
-          document.querySelectorAll(`input[name="${p}"]`).forEach(function(radio) {
-            radio.addEventListener('change', function() {
-              let prop = (p0=="weight") ? "fontWeight" : "fontStyle";
-              updateCSSProperty(csssel[target], prop, this.value, this.value, p);
-            });    
-          });
-        });
-    } // target
-  );
-
-  ['textalign', 'textvalign'].forEach((k) => {
-    document.querySelectorAll(`input[name="${k}"]`).forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        updateCSSProperty('#innertext', id2propname(k), this.value, this.value, k);
-      });
-    });
-  });
-
-  /* document.querySelectorAll('input[name="textvalign"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      //const innertext = document.querySelector('#innertext');
-      // main.offsetHeight が1006のはず。
-      //innertext.style.vertical_align = this.value;
-      //var targetDiv = document.getElementById("innertext");
-      if (targetDiv) {
-        //updateCSSProperty('#innertext', 'display',   'table-cell', 'table-cell',  'display');
-        updateCSSProperty('#innertext', 'textAlign', this.value, this.value, 'textalign');
-        //targetDiv.style.display       = "table-cell";
-        //targetDiv.style.verticalAlign = this.value;
-      }
-    });
-  }); */
-  ['padding_top', 'padding_left'].forEach( (k) => {
-    document.querySelectorAll(`input[name="${k}"]`).forEach(function(event) {
-      event.addEventListener('change', function() {
-        let v  = document.getElementById(k).value;
-        document.querySelector("#innertext").style[`${id2propname(k)}`] = v+"px";
-        vals['_'][k] = v;
-      });
-    });
-  });
-/*   document.querySelectorAll('input[name="padding_top"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      let padding_top = document.getElementById('padding_top').value;
-      document.querySelector("#innertext").style.paddingTop = padding_top+"px";
-    });
-  });
-  document.querySelectorAll('input[name="padding_left"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-      let padding_left = document.getElementById('padding_left').value;
-      document.querySelector("#innertext").style.paddingLeft = padding_left+"px";
-    });
-  });
- */
-  document.getElementById('textarea').addEventListener('change', function() {
-    // テキスト入力フォームの内容を取得
-    var textInput = document.getElementById('textarea').value;
-
-    // mainブロック内にテキストを追記
-    const main = document.querySelector('main');
-
-    // 隠し機能：使用フォント名を追記する
-    textInput = textInput.replace("***fontname***", getComputedStyle(document.querySelector('main')).font);
-
-    const md = markdownit({
-    html: true,
-    linkify: true,
-    typographer: true
-    });
-
-    // md -> html
-    var htmltxt = md.render(textInput);
-    let innertext = document.getElementById('innertext');
-    innertext.innerHTML = htmltxt;
-    init_by_theme('_');
-  }); //document.getElementById('#textarea')
-
-  // 既設backgroundimageのどれかを選ぶ。ユーザー画像が選択されていたらそちらを優先
-  document.getElementById('bgimage_pre').addEventListener('change', function(event){
-    if(typeof vals['_']['bgimage_users'] === "undefined"){
-      console.log("set preloaded image.", this.value);
-      vals['_']['bgimage_pre'] = this.value;
-      set_bgimage(srcimg[this.value]);
-    }else{
-      console.log('user image already set');
-    }
-  });
-
-  // 背景画像のユーザー選択
-  document.getElementById('bgimage_users').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = function() {
-        //let base64String = reader.result;
-        //const main = document.querySelector('main');
-        //main.style.backgroundImage = `url(${base64String})`;
-        set_bgimage(reader.result);
-      };
-      reader.readAsDataURL(file);
-      vals['_']['bgimage_users'] = file;
-    }
-  });
-
-  function set_bgimage(base64String){
-    //const base64String = reader.result;
-    const main = document.querySelector('main');
-    main.style.backgroundImage = `url(${base64String})`;  
-  }
-
-// マークダウンの基本設定
-
-const markdown_setting = window.markdownit({
-  html: true, // htmlタグを有効にする
-  breaks: true, // md内の改行を<br>に変換
-});
-
-const markdown_editer = $(".js-markdown-editer");
-// マークダウンの設定をjs-markdown-editerにHTMLとして反映させる
-const markdown_html = markdown_setting.render(getHtml(markdown_editer));
-markdown_editer.html(markdown_html);
-
-// 比較演算子（=，<>，<，<=，>，>=）をそのまま置換する
-function getHtml(selector) {
-  let markdown_text = $(selector).html();
-  // let markdown_text = document.querySelectorAll(selector)[1].innerHTML;
-  markdown_text = markdown_text.replace(/&lt;/g, );
-  markdown_text = markdown_text.replace(/&gt;/g, );
-  markdown_text = markdown_text.replace(/&amp;/g, );
-  return markdown_text;
-}
-
-// https://khsmty.com/article/html2canvas-image-download/
-function downloadElAsPng() {
-  const el = document.querySelector("main");
-  if (!el) {
-    console.error("要素が見つかりませんでした。");
-    return;
-  }
-
-  html2canvas(el).then((canvasEl) => {
-    const aEl = document.createElement("a");
-    aEl.href = canvasEl.toDataURL("image/png");
-    aEl.download = "md_snapshot.png";
-    aEl.click();
-    }
-  );
-};
-
-//Default values for the selected theme
-const inputs = document.querySelectorAll('input,select');
-
-// Set input form parameters, and reflect to innertext or main
-function init_by_theme(t){
-  inputs.forEach(input => {
-    const inputName = input.name;
-    if(inputName=="theme"){
-      return;
-    }
-    let v = theme_val(t, inputName);
-    let prop = id2propname(inputName);
-    let e0;
-    let target_tag = '';
-    if(e0 = inputName.match("padding_(top|left)")){
-      input.value = v;
-      updateCSSProperty('#innertext', id2propname(e0[0]), v+"px", v, inputName);
-    }else if(e0 = inputName.match("textv?align")){
-      if (input.value === v) {
-            input.checked = true;
-      }
-      let vv = input.id.match("([a-zA-Z]+)_align$")[1]; //left,center,right,top,middle,bottom
-      if(vv == v){
-        document.querySelectorAll('#innertext').forEach((e1)=>{
-          try{
-            e1.style[prop] = v;
-          }catch(er){
-            console.log(er)
-          }
-        })
-      }
-    }else if(e0 = inputName.match("bgimage_pre")){
-      console.log("check bgimage_pre on theme:", theme);
-      set_bgimage(srcimg[v]);
-      vals[t][inputName] = v;
-    //  updateCSSProperty('main', prop, v, v, inputName);
-    }else if(e0 = inputName.match("bgimage_users")){ 
-      console.log("check bgimage_users on theme:", theme);
-      updateCSSProperty('main', prop, v, v, inputName);
-    }else if(e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_")){
-      try{
-        target_tag = (typeof e0[1] === 'undefined') ? 'p' : (e0[1] == 'st') ? 'strong' : e0[1];
-      }catch(e){
-        console.log(e, e0);
-      }
-      if (v !== undefined) {
-        if (input.type === "radio") {
-          if (input.value === v) {
-            input.checked = true;
-          }
-          let vv = input.id.match("_([a-zA-Z0-9]+)$")[1];
-          if(vv == v){
-            document.querySelectorAll(`#innertext ${target_tag}`).forEach((e1)=>{
-              try{
-                e1.style[prop] = v;
-              }catch(er){
-                console.log(er)
-              }
-            })
-          }
-        } else if (input.type === "number" || input.type === "color" || input.type === "file") {
-          input.value = v;
-        }
-      }
-      updateCSSProperty(`#innertext ${target_tag}`, prop, v, v, inputName);
-    } // if (e0 = ...)
-  });
-}
-init_by_theme(theme);
-</script>
+<script src="setting.js"></script>
+<script src="md2png.js"></script>
 </body>
 </html>
