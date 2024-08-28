@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>markdownいっぱつ画像化</title>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/mvp.css">
+<style>
+body {
+font-family: 
+"Helvetica Neue",
+Arial,
+"BIZ UDPGothic",
+"Yu Gothic UI Bold",
+"Hiragino Kaku Gothic ProN",
+"Hiragino Sans",
+Meiryo,
+sans-serif;
+}
+main{
+  font-family: "BIZ UDPGothic"!important;
+  /* font-family: "Meiryo"!important; */
+  /* font-family: "M+1VM+IPAG circle Regular"!important; */
+  /* font-family: AoyagiKouzanFontGyousyo!important; */
+  background-color: #eef;
+  width: 1920px;
+  height: 1006px;
+  margin: 20px;
+  padding: 0;
+  background-image: url(bg2_blackboard_man.jpg);
+  background-size: cover;
+ }
+.pagetitle{
+  font-size: 3rem;
+}
+dt{
+  font-weight: bold;
+  font-size: larger;
+}
+.pagesection{
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  color: white;
+  background-color: black;
+}
+.shadow {
+  font-size: 50px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+}
+.shadow h1 {
+color: red;
+/* font-family: "BIZ UDPGothic"!important; */
+font-family: "kirieji"!important;
+
+margin: 5px;
+font-size: 200px;
+line-height: 220px;
+font-weight: bold;
+text-shadow: 10px 10px 0px #fff, -10px -10px 0px #fff, -10px 10px 0px #fff, 10px -10px 0px #fff, 10px 0px 0px #fff, -10px 0px 0px #fff, 0px 10px 0px #fff, 0px -10px 0px #fff;
+text-wrap: nowrap;
+-webkit-text-stroke-width: 6px;
+-webkit-text-stroke-color: black;
+}
+.shadow h2 {
+color: red;
+font-size: 160px;
+/* font-family: "BIZ UDPGothic"!important; */
+/* font-family: "kirieji"!important; */
+
+line-height: 170px;
+margin: 3px;
+font-weight: bold;
+text-shadow: 2px 2px 0px #fff, -5px -5px 0px #fff, -5px 5px 0px #fff, 5px -5px 0px #fff, 5px 0px 0px #fff, -5px 0px 0px #fff, 0px 5px 0px #fff, 0px -5px 0px #fff;
+-webkit-text-stroke-width: 5px;
+-webkit-text-stroke-color: black;
+}
+.shadow h3 {
+color: #ffa0a0;
+/* font-family: "BIZ UDPGothic"!important; */
+/* font-family: "kirieji"!important; */
+
+font-size: 90px;
+line-height: 100px;
+margin: 3px;
+font-weight: bold;
+text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0px #fff, 2px 0px 0px #fff, -2px 0px 0px #fff, 0px 2px 0px #fff, 0px -2px 0px #fff;
+-webkit-text-stroke-width: 3px;
+-webkit-text-stroke-color: black;
+}
+span input{
+  white-space: nowrap;
+  margin-right: 1em;
+  display: inline;
+}
+</style>
+</head>
+<body>
+<h1 class="pagetitle">Markdownいっぱつ画像化</h1>
+
+<h2 class="pagesection">設定</h2>
+<button id="clear_button">テキストをリセット</button>
+
+<!-- フォームを追加 -->
+<div>
+  <ul>
+    <dt>markdownテキスト</dt>
+    <dd>
+      <textarea id="textarea" name="textarea" rows="10" cols="50">
+### 文字入りの画像は
+## 目立つ！
+
+紛らわしい文字たち
+oO08 iIlL1 g9qCGQ ハバパヘベペ
+
+**bold** *italic*
+ 
+|       | 1列目 | 2列目 | 3列目 |
+|-------|-------|-------|-------|
+| 1行目 | 1-1   | 1-2   | 1-3   |
+| 2行目 | 2-1   | 2-2   | 2-3   |
+
+***fontname***
+</textarea>
+    </dd>
+    <dt>テキスト色</dt>
+    <dd>
+        <span>標準&nbsp;    <input type="color" id="color_text"    value="#000000"></span>
+        <span>大見出し&nbsp;<input type="color" id="color_h2text"  value="#ff0000"></span>
+        <span>小見出し&nbsp;<input type="color" id="color_h3text"  value="#ffa0a0"></span>
+    </dd>
+    <dt>テキスト配置</dt>
+    <dd>
+      <div>
+        <input type="radio" id="leftAlign" name="textAlign" value="left" checked>
+        <label for="leftAlign">左寄せ</label>
+        <input type="radio" id="centerAlign" name="textAlign" value="center">
+        <label for="centerAlign">センタリング</label>
+        <input type="radio" id="rightAlign" name="textAlign" value="right">
+        <label for="rightAlign">右寄せ</label>
+      </div>    
+    </dd>
+  </ul>
+  <button id="update_button">更新・ダウンロード</button>
+</div>
+
+<h2 class="pagesection">プレビュー</h2>
+<main id="target" class="shadow l-main-editer js-markdown-editer">
+
+### 文字入りの画像は
+## 目立つ！
+
+紛らわしい文字たち
+oO08 iIlL1 g9qCGQ ハバパヘベペ
+
+**bold** *italic*
+
+|       | 1列目 | 2列目 | 3列目 |
+|-------|-------|-------|-------|
+| 1行目 | 1-1   | 1-2   | 1-3   |
+| 2行目 | 2-1   | 2-2   | 2-3   |
+
+</main>
+
+<script>
+  // テキスト入力欄を空に
+  document.getElementById('clear_button').addEventListener('click', function() {
+    document.getElementById('textarea').value = "";
+  });
+
+  document.getElementById('update_button').addEventListener('click', function() {
+    // テキスト入力フォームの内容を取得
+    var textInput = document.getElementById('textarea').value;
+    
+    // カラーピッカーの色設定を取得
+    const color_text   = document.getElementById('color_text').value;
+    const color_h2text = document.getElementById('color_h2text').value;
+    const color_h3text = document.getElementById('color_h3text').value;
+
+    // mainブロック内にテキストを追記
+    const main = document.querySelector('main');
+
+    // mainタグ内のタグにカラーピッカーの色設定を反映
+    main.style.color = color_text;
+    const h2 = main.querySelector('h2');
+    if (h2) {
+      h2.style.color = color_h2text;
+    }
+    const h3 = main.querySelector('h3');
+    if (h3) {
+      h3.style.color = color_h3text;
+    }
+
+    // 隠し機能：使用フォント名を追記する
+    textInput = textInput.replace("***fontname***", getComputedStyle(document.querySelector('main')).font);
+
+    document.querySelectorAll('input[name="textAlign"]').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        const main = document.querySelector('main');
+        main.style.textAlign = this.value;
+      });
+    });
+
+    const md = markdownit({
+    html: true,
+    linkify: true,
+    typographer: true
+    });
+
+    // md -> html
+    const htmltxt = md.render(textInput);
+    main.innerHTML = htmltxt;
+    downloadElAsPng();
+  });
+</script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.2.2/markdown-it.min.js"></script>
+<script>
+
+// マークダウンの基本設定
+
+const markdown_setting = window.markdownit({
+  html: true, // htmlタグを有効にする
+  breaks: true, // md内の改行を<br>に変換
+});
+
+const markdown_editer = $(".js-markdown-editer");
+// マークダウンの設定をjs-markdown-editerにHTMLとして反映させる
+const markdown_html = markdown_setting.render(getHtml(markdown_editer));
+markdown_editer.html(markdown_html);
+
+// 比較演算子（=，<>，<，<=，>，>=）をそのまま置換する
+function getHtml(selector) {
+  let markdown_text = $(selector).html();
+  // let markdown_text = document.querySelectorAll(selector)[1].innerHTML;
+  markdown_text = markdown_text.replace(/&lt;/g, );
+  markdown_text = markdown_text.replace(/&gt;/g, );
+  markdown_text = markdown_text.replace(/&amp;/g, );
+  return markdown_text;
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+// https://khsmty.com/article/html2canvas-image-download/
+function downloadElAsPng() {
+  const el = document.querySelector("main");
+  if (!el) {
+    console.error("要素が見つかりませんでした。");
+    return;
+  }
+
+  html2canvas(el).then((canvasEl) => {
+    const aEl = document.createElement("a");
+    aEl.href = canvasEl.toDataURL("image/png");
+    aEl.download = "md_snapshot.png";
+    aEl.click();
+  });
+};
+</script>
+</body>
+</html>
