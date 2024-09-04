@@ -62,16 +62,16 @@ let vals ={
     textvalign:    'middle', // text vertical align: 'top', 'middle' or 'bottom'
     padding_left:  '0',      // left padding [px]
     padding_top:   '0',      // top padding [px]
-    bgcolor:       '#ffffff' // background color (not effective if bgimage is set)
+    bgcolor:       '#ffffff',// background color (not effective if bgimage is set)
     prebgimg:      'plant',  // preloaded background image
     bgimage_users: undefined,// background image file name (jpeg/png)
     bgimage_pre:   'plant',  // preset background images (baloon1, baloon2, blackboard, computerwork, flower, nature, or plant)
-    textarea:`
-    ## test
-    ### test 2
+    textarea:
+`## test
+### test 2
 
-    xxxx
-    `
+xxxx
+`
   },
   baloon1: {
     bgimage_pre:   'baloon1',
@@ -109,3 +109,4 @@ let vals ={
     padding_top:   '130'
   }
 };
+console.log("setting.js:", Object.keys(vals));
