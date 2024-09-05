@@ -49,6 +49,7 @@ function id2propname(id) {
         : id.match("valign")        ? "verticalAlign"
         : id.match("align")         ? "textAlign"
         : id.match("padding_top")   ? "paddingTop"
+        : id.match("bgcolor")       ? "backgroundColor"
         : id.match("bgimage_pre")   ? "backgroundImage"
         : id.match("bgimage_users") ? "backgroundImage"
         : id.match("padding_left")  ? "paddingLeft" : '');
@@ -102,11 +103,12 @@ function updateCSSProperty_all(inputs){
     }
 
     if((typeof prop != 'undefined') && (typeof v != 'undefined')){
-      console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
+      // console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
       document.querySelectorAll(target).forEach(t =>{
         if(prop=="backgroundColor"){
           if((typeof theme_val('_', 'bgimage_user') == 'undefined') && (typeof theme_val('_', 'bgimage_pre') == 'undefined')){
             console.log('bgcolor to be set here.');
+            t.style[prop] = v;
           }
         }else if(prop=="backgroundImage"){
           const user = theme_val('_', 'bgimage_user');
@@ -127,7 +129,7 @@ function updateCSSProperty_all(inputs){
     }
   });
   console.log("end of updatecssall");
-}
+} // updateCSSProperty_all()
 
 // テキスト入力欄を空に
 document.getElementById('clear_button').addEventListener('click', function () {
@@ -143,6 +145,13 @@ document.getElementById('save_button').addEventListener('click', function () {
 theme_select.addEventListener("change", function () {
   theme = this.value;
   init_by_theme(theme);
+});
+
+// 何か変更されるたびにcss, innertextを更新
+document.querySelectorAll('textarea,input').forEach( x=> {
+  x.addEventListener('change', function(){
+    console.log(`${x.name} changed.`);
+  });
 });
 
 // *text
@@ -207,7 +216,8 @@ document.getElementById('textarea').addEventListener('change', function () {
   textInput = textInput.replace("***fontname***", getComputedStyle(document.querySelector('main')).font);
 
   // md -> html
-  document.getElementById('innertext').innertext.innerHTML = md.render(textInput);
+  document.getElementById('innertext').innerHTML = md.render(textInput);
+  updateCSSProperty_all(inputs);
   vals['_']['textarea'] = textInput;
   //init_by_theme('_');
 }); //document.getElementById('#textarea')
@@ -243,7 +253,12 @@ function set_bgimage(base64String) {
   //const base64String = reader.result;
   const main = document.querySelector('main');
   console.log('set_bgimage');
-  main.style.backgroundImage = `url(${base64String})`;
+  if((typeof base64String == 'undefined') || (base64String == "")){
+    main.style.backgroundImage = "";
+    main.style.backgroundColor = theme_val('_', 'backgroundColor');
+  }else{
+    main.style.backgroundImage = `url(${base64String})`;
+  }
 }
 
 // 比較演算子（=，<>，<，<=，>，>=）をそのまま置換する
@@ -344,11 +359,16 @@ function init_by_theme(t) {
         })
       }
     } else if (e0 = inputName.match("bgcolor")) {
-
-    } else if (e0 = inputName.match("bgimage_pre")) {
-      set_bgimage(srcimg[v]);
       input.value = v;
       vals[t][inputName] = v;
+    } else if (e0 = inputName.match("bgimage_pre")) {
+      if(v == ''){
+
+      }else{
+        set_bgimage(srcimg[v]);
+        input.value = v;
+        vals[t][inputName] = v;  
+      }
       //  updateCSSProperty('main', prop, v, v, inputName);
     } else if (e0 = inputName.match("bgimage_users")) {
       console.log("check bgimage_users on theme:", theme);
@@ -389,8 +409,9 @@ function init_by_theme(t) {
       //updateCSSProperty(`#innertext ${target_tag}`, prop, v1, v, inputName);
     } // if (e0 = ...)
   }); // inputs.forEach
+  md2html();
   updateCSSProperty_all(inputs);
 
 } // init_by_theme()
 init_by_theme(theme);
-md2html();
+//md2html();
