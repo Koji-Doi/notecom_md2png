@@ -14,7 +14,17 @@ function uniq(array) { // 配列の重複要素除去
   return array.filter((elem, index, self) => self.indexOf(elem) === index);
 }
 
-function theme_val(theme, propname) {
+function chkval(v){
+  return(
+      (typeof v == "undefined") ? "undefined"
+    : (typeof v == "object")    ? Object.keys(v).join("|")
+    : (typeof v == "string")    ? v.substring(0,100)
+    : v
+  );
+}
+
+function theme_val(theme0, propname) {
+
   if (typeof theme == "undefined") {
     theme = 'std';
   }
@@ -23,6 +33,20 @@ function theme_val(theme, propname) {
   }
   return (vals[(propname in vals[theme]) ? theme : 'std'][propname]);
 }
+
+function theme_options(){
+  let out='';
+  Object.keys(theme_group).forEach(group =>{
+    out += `<optgroup label="${group}">` + "\n";
+    theme_group[group].forEach(opt=>{
+      let desc = (vals[opt]['_label']) ? vals[opt]['_label'] : opt; 
+      out += `  <option value="${opt}">${desc}</option>` + "\n";
+    });
+    out += "</optgroup>\n";
+  });
+  return(out);
+}
+document.getElementById('theme').innerHTML = theme_options();
 
 function shadow_val(t, c) {
   t = t.replace(/(\d+)$/, '$1px');
@@ -70,7 +94,7 @@ function updateCSSProperty(selector, property, value_css, value_form, param) {
         }
       });
     }else{
-      console.log(`${selector}: ${property} = ${elements[0].style[property]}`);
+    //  console.log(`${selector}: ${property} = ${elements[0].style[property]}`);
     }
   }else{
     //console.log(`update: ${selector}, ${property}, ${value_css}, ${value_form}, ${param}`);
@@ -85,16 +109,24 @@ function updateCSSProperty(selector, property, value_css, value_form, param) {
 function updateCSSProperty_all(inputs){
   inputs.forEach( input => {
     let target = '#innertext';
-    let prop;
-    let v = theme_val('_', input.name);
+    let prop   = id2propname(input.name);
+    let v      = theme_val('_', input.name);
     let v_unit = v;
-    let xx = input.name.match("((?:h2|h3|st|em|th|td)?text)_(.*)");
+
+    if((typeof prop=="undefined") || prop=="theme" || prop=="") {return;}
+
+
+    // reset values if necessary
     if(input.name=="textarea"){
-      
-    }else if(xx == null){ // textv?align padding_*
-      v_unit = (input.name.match("padding")) ? v+"px" : v; 
-      prop = id2propname(input.name); 
+    }else if(input.name=="bgimage_pre"){
+    }else if(input.name=="bgimage_users"){
+    }else if(input.name=="bgcolor"){
+    }else if(input.name.match("padding")){
+      v_unit = v+"px";
+    }else if(input.name.match("textv?align")){
     }else{
+      console.log("input.name = ", input.name);
+      let xx = input.name.match("((?:h2|h3|st|em|th|td)?text)_(.*)");
       prop   = id2propname(xx[2]);
       target = csssel[xx[1]];
       v_unit = (xx[2].match("(size|padding|t_e1)")) ? v+"px" 
@@ -102,6 +134,7 @@ function updateCSSProperty_all(inputs){
              : v;
     }
 
+    // set style for each property
     if((typeof prop != 'undefined') && (typeof v != 'undefined')){
       // console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
       document.querySelectorAll(target).forEach(t =>{
@@ -125,7 +158,7 @@ function updateCSSProperty_all(inputs){
         }
       });
     }else{
-      console.log("??");
+      console.log(`update all: prop=${chkval(prop)}, v=${chkval(v)} `);
     }
   });
   console.log("end of updatecssall");
@@ -262,7 +295,7 @@ function set_bgimage(base64String) {
 }
 
 // 比較演算子（=，<>，<，<=，>，>=）をそのまま置換する
-function getHtml(markdown_text) {
+function get_html(markdown_text) {
     //let markdown_text = $(selector).html();
     // let markdown_text = document.querySelectorAll(selector)[1].innerHTML;
   markdown_text = markdown_text.replace(/&lt;/g,);
@@ -284,7 +317,7 @@ function md2html(txt) {
     markdown_editer.html(markdown_setting.render(txt))
   } else {
     // マークダウンの設定をjs-markdown-editerにHTMLとして反映させる
-    //const markdown_html = markdown_setting.render(getHtml(markdown_editer.html()));
+    //const markdown_html = markdown_setting.render(get_html(markdown_editer.html()));
     const markdown_html = markdown_setting.render(document.getElementById('innertext').innerHTML);
     markdown_editer.html(
       markdown_html
@@ -362,13 +395,9 @@ function init_by_theme(t) {
       input.value = v;
       vals[t][inputName] = v;
     } else if (e0 = inputName.match("bgimage_pre")) {
-      if(v == ''){
-
-      }else{
-        set_bgimage(srcimg[v]);
+        set_bgimage((v=="") ? "" : srcimg[v]);
         input.value = v;
         vals[t][inputName] = v;  
-      }
       //  updateCSSProperty('main', prop, v, v, inputName);
     } else if (e0 = inputName.match("bgimage_users")) {
       console.log("check bgimage_users on theme:", theme);
