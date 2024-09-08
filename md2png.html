@@ -95,7 +95,7 @@ text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, -2px 2px 0px #fff, 2px -2px 0
 -webkit-text-stroke-width: 3px;
 -webkit-text-stroke-color: black;
 }
-li>input{
+li>input,#bgcolor{
   white-space: nowrap;
   margin-right: 1em;
   display: inline;
@@ -318,8 +318,10 @@ footer{
         <li>left:<input type="number" id="padding_left" name="padding_left" value="0">px</li>
       </ul>
     </dd>
-    <dt title="背景画像設定の方が優先されます">背景色</dt>
-    <dd><input type="color" id="bgcolor" name="bgcolor"></dd>
+    <dt title="背景画像設定の方が優先されます">背景色</dt>    
+    <dd>
+      <ul class="textsetting"><li>色<input type="color" id="bgcolor" name="bgcolor"></li></ul>
+    </dd>
     <dt title="ユーザー背景画像設定の方が優先されます">既定背景画像</dt>
     <dd>
       <select id="bgimage_pre" name="bgimage_pre">

@@ -8,7 +8,7 @@ let csssel = { text: "#innertext p", h2text: "#innertext h2", h3text: "#innertex
 let theme_select = document.getElementById('theme');
 let theme = theme_select.value;
 //Default values for the selected theme
-const inputs = document.querySelectorAll('input,select,textarea');
+let inputs = document.querySelectorAll('input,select,textarea');
 
 function uniq(array) { // 配列の重複要素除去
   return array.filter((elem, index, self) => self.indexOf(elem) === index);
@@ -107,6 +107,7 @@ function updateCSSProperty(selector, property, value_css, value_form, param) {
 
 // 全てのCSSプロパティを更新
 function updateCSSProperty_all(inputs){
+  console.log("****",inputs);
   inputs.forEach( input => {
     let target = '#innertext';
     let prop   = id2propname(input.name);
@@ -119,8 +120,11 @@ function updateCSSProperty_all(inputs){
     // reset values if necessary
     if(input.name=="textarea"){
     }else if(input.name=="bgimage_pre"){
+      target = 'main';
     }else if(input.name=="bgimage_users"){
+      target = 'main';
     }else if(input.name=="bgcolor"){
+      target = 'main';
     }else if(input.name.match("padding")){
       v_unit = v+"px";
     }else if(input.name.match("textv?align")){
@@ -136,10 +140,10 @@ function updateCSSProperty_all(inputs){
 
     // set style for each property
     if((typeof prop != 'undefined') && (typeof v != 'undefined')){
-      // console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
+      console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
       document.querySelectorAll(target).forEach(t =>{
         if(prop=="backgroundColor"){
-          if((typeof theme_val('_', 'bgimage_user') == 'undefined') && (typeof theme_val('_', 'bgimage_pre') == 'undefined')){
+          if(!(theme_val('_', 'bgimage_users') && theme_val('_', 'bgimage_pre'))){
             console.log('bgcolor to be set here.');
             t.style[prop] = v;
           }
@@ -255,6 +259,16 @@ document.getElementById('textarea').addEventListener('change', function () {
   //init_by_theme('_');
 }); //document.getElementById('#textarea')
 
+// 背景色を選ぶ。背景画像が選択されていたらそちらを優先
+document.getElementById('bgcolor').addEventListener('change', function (event) {
+  vals['_']['bgcolor'] = this.value;
+  console.log('bgcolor', this.value);
+  set_bgimage(theme_val('_', 'bgimage_users') || theme_val('_', 'bgimage_pre'));
+  if ((typeof vals['_']['bgimage_users'] === "undefined") || ((typeof vals['_']['bgimage_pre'] === "undefined")) ) {
+    updateCSSProperty('main', 'backgroundColor', this.value, this.value, 'bgcolor') 
+  }
+});
+
 // 既設backgroundimageのどれかを選ぶ。ユーザー画像が選択されていたらそちらを優先
 document.getElementById('bgimage_pre').addEventListener('change', function (event) {
   if (typeof vals['_']['bgimage_users'] === "undefined") {
@@ -278,12 +292,16 @@ document.getElementById('bgimage_users').addEventListener('change', function (ev
     };
     reader.readAsDataURL(file);
     vals['_']['bgimage_users'] = file;
+  }else{
+    set_bgimage('');
+    vals['_']['bgimage_users'] = '';
   }
 }); // document.getElementById('bgimage_users').
 // End of form 変更反映
 
 function set_bgimage(base64String) {
   //const base64String = reader.result;
+  //if base64String is false, set bgcolor
   const main = document.querySelector('main');
   console.log('set_bgimage');
   if((typeof base64String == 'undefined') || (base64String == "")){
@@ -404,7 +422,7 @@ function init_by_theme(t) {
       try {
         input.value = v;
       } catch (er) { }
-      updateCSSProperty('main', prop, v, v, inputName);
+      //updateCSSProperty('main', prop, v, v, inputName);
     } else if (e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_(.*)")) {
       try {
         target_tag = (typeof e0[1] === 'undefined') ? 'p'

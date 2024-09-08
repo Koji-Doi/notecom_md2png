@@ -1,6 +1,6 @@
 let theme_group = {
   基本テーマ: ['std'],
-  バナー作成: ['baloon1', 'baloon2', 'flower', 'computerwork', 'nature', 'black_board_man'], 
+  バナー作成: ['blueback', 'baloon1', 'baloon2', 'flower', 'computerwork', 'nature', 'black_board_man'], 
   表作成:     ['tbl1']
 };
 let vals ={
@@ -88,6 +88,20 @@ let vals ={
   
   xxxx
   `
+    },
+    blueback:{
+      _label:       '青バックスライド風',
+      bgimage_pre:  '',
+      bgcolor:      '#009bff',
+      h2text_size:  '220',
+      h2text_weight:'bold',
+      h2text_t_e1:  '5',
+      h2text_t_e2:  '2',
+      h2text_color: '#ffffff',
+      h3text_size:  '170',
+      h3text_t_e1:  '5',
+      h3text_t_e2:  '4',
+      h3text_color: '#ffff00'
     },
     baloon1: {
       _label:        '吹き出しと少女1',
