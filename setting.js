@@ -83,11 +83,16 @@ let vals ={
       bgimage_users: undefined,// background image file name (jpeg/png)
       bgimage_pre:   'plant',  // preset background images (baloon1, baloon2, blackboard, computerwork, flower, nature, or plant)
       textarea:
-  `## test
-  ### test 2
-  
-  xxxx
-  `
+`### 文字入りの画像は
+## 目立つ！
+
+**strong** *em*
+ 
+|       | 1列目 | 2列目 | 3列目 |
+|-------|-------|-------|-------|
+| 1行目 | 1-1   | 1-2   | 1-3   |
+| 2行目 | 2-1   | 2-2   | 2-3   |
+`
     },
     blueback:{
       _label:       '青バックスライド風',

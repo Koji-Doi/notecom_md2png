@@ -25,13 +25,13 @@ function chkval(v){
 
 function theme_val(theme0, propname) {
 
-  if (typeof theme == "undefined") {
-    theme = 'std';
+  if (typeof theme0 == "undefined") {
+    theme0 = (typeof theme == 'undefined') ? 'std' : theme;
   }
-  if (!(theme in vals)) {
+  if (!(theme0 in vals)) {
     return (undefined);
   }
-  return (vals[(propname in vals[theme]) ? theme : 'std'][propname]);
+  return (vals[(propname in vals[theme0]) ? theme0 : 'std'][propname]);
 }
 
 function theme_options(){

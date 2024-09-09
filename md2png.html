@@ -125,7 +125,7 @@ footer{
 </style>
 </head>
 <body>
-<h1 id="pagetitle" class="pagetitle" style="color:red;">Markdownいっぱつ画像化</h1>
+<h1 id="pagetitle" class="pagetitle">Markdownいっぱつ画像化</h1>
 <h2 class="pagesection">設定</h2>  
 
 <!-- フォームを追加 -->
@@ -143,18 +143,7 @@ footer{
     <dt>markdownテキスト</dt>
     <dd>
       <button id="clear_button">テキストをリセット</button>
-      <textarea id="textarea" name="textarea" rows="10" cols="50">
-### 文字入りの画像は
-## 目立つ！
-
-**strong** *em*
- 
-|       | 1列目 | 2列目 | 3列目 |
-|-------|-------|-------|-------|
-| 1行目 | 1-1   | 1-2   | 1-3   |
-| 2行目 | 2-1   | 2-2   | 2-3   |
-
-</textarea>
+      <textarea id="textarea" name="textarea" rows="10" cols="50"></textarea>
     </dd>
     <dt>テキストスタイル</dt>
     <dd><details><dl>
@@ -175,7 +164,7 @@ footer{
         </ul>
       </details>
     </dd>
-    <dt>大見出し:h2</dt>
+    <dt>大見出し:h2 (## ...)</dt>
     <dd>
       <details>
         <ul class="textsetting">
@@ -192,7 +181,7 @@ footer{
         </ul>
       </details>
     </dd>
-    <dt>小見出し:h3</dt>
+    <dt>小見出し:h3 (### ...)</dt>
     <dd>
       <details>
         <ul class="textsetting">
@@ -209,7 +198,7 @@ footer{
         </ul>
       </details>
     </dd>
-    <dt>重要:em</dt>
+    <dt>重要:em (*...*)</dt>
     <dd>
       <details>
         <ul class="textsetting">
@@ -226,7 +215,7 @@ footer{
         </ul>
       </details>
     </dd>
-    <dt>強調:strong</dt>
+    <dt>強調:strong (**...**)</dt>
     <dd>
       <details>
         <ul class="textsetting">
@@ -289,9 +278,10 @@ footer{
     <dd>
       <details></details>
     </dd>
-    </dl></details></dd>
  -->
-    <dt>テキスト配置</dt>
+    </dl></details></dd>
+
+<dt>テキスト配置</dt>
     <dd>
       <div>
         <input type="radio" id="left_align" name="textalign" value="left" checked>
@@ -338,7 +328,6 @@ footer{
     <dt>ユーザー背景画像</dt>
     <dd>  <input type="file" id="bgimage_users" accept="image/png, image/jpeg" name="bgimage_users"></dd>
   </dl>
-<!--  <button id="update_button">更新・ダウンロード</button> -->
   <button id="save_button">ダウンロード</button>
 
 </div>
