@@ -107,7 +107,6 @@ function updateCSSProperty(selector, property, value_css, value_form, param) {
 
 // 全てのCSSプロパティを更新
 function updateCSSProperty_all(inputs){
-  console.log("****",inputs);
   inputs.forEach( input => {
     let target = '#innertext';
     let prop   = id2propname(input.name);
@@ -140,9 +139,9 @@ function updateCSSProperty_all(inputs){
 
     // set style for each property
     if((typeof prop != 'undefined') && (typeof v != 'undefined')){
-      console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
+      // console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
       document.querySelectorAll(target).forEach(t =>{
-        if(prop=="backgroundColor"){
+ /*        if(prop=="backgroundColor"){
           if(!(theme_val('_', 'bgimage_users') && theme_val('_', 'bgimage_pre'))){
             console.log('bgcolor to be set here.');
             t.style[prop] = v;
@@ -157,15 +156,19 @@ function updateCSSProperty_all(inputs){
               console.log('set pre');
             }
           }
-        }else{
+        }else{ */
           t.style[prop] = v_unit;
-        }
+        //}
       });
     }else{
-      console.log(`update all: prop=${chkval(prop)}, v=${chkval(v)} `);
+      //console.log(`update all: prop=${chkval(prop)}, v=${chkval(v)} `);
     }
   });
-  console.log("end of updatecssall");
+
+  // 最後に背景設定
+  set_bgimage(theme_val('_', 'bgimage_users') || srcimg[theme_val('_', 'bgimage_pre')]);
+
+  //console.log("end of updatecssall");
 } // updateCSSProperty_all()
 
 // テキスト入力欄を空に
@@ -263,7 +266,7 @@ document.getElementById('textarea').addEventListener('change', function () {
 document.getElementById('bgcolor').addEventListener('change', function (event) {
   vals['_']['bgcolor'] = this.value;
   console.log('bgcolor', this.value);
-  set_bgimage(theme_val('_', 'bgimage_users') || theme_val('_', 'bgimage_pre'));
+  set_bgimage(theme_val('_', 'bgimage_users') || srcimg[theme_val('_', 'bgimage_pre')]);
   if ((typeof vals['_']['bgimage_users'] === "undefined") || ((typeof vals['_']['bgimage_pre'] === "undefined")) ) {
     updateCSSProperty('main', 'backgroundColor', this.value, this.value, 'bgcolor') 
   }
@@ -299,16 +302,27 @@ document.getElementById('bgimage_users').addEventListener('change', function (ev
 }); // document.getElementById('bgimage_users').
 // End of form 変更反映
 
-function set_bgimage(base64String) {
-  //const base64String = reader.result;
-  //if base64String is false, set bgcolor
+function set_bgimage(x){
+  //x: png file path, or base64-encoded data
+  let base64String;
   const main = document.querySelector('main');
-  console.log('set_bgimage');
-  if((typeof base64String == 'undefined') || (base64String == "")){
+
+  //if x is false, set bgcolor instead of backgroundImage
+  if(typeof x == "undefined" || x == ""){
     main.style.backgroundImage = "";
-    main.style.backgroundColor = theme_val('_', 'backgroundColor');
+    main.style.backgroundColor = theme_val('_', 'bgcolor');
   }else{
-    main.style.backgroundImage = `url(${base64String})`;
+    if(x.match("data:image/png;base64")){
+      base64String = x;
+    }else{ // when x is not base64string but filename
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        console.log(`file ${file} is loaded and converted into base64`);
+        base64String = reader.result
+      };
+      reader.readAsDataURL(x);
+    }
+    main.style.backgroundImage = `url(${base64String})`;  
   }
 }
 
@@ -411,15 +425,16 @@ function init_by_theme(t) {
       }
     } else if (e0 = inputName.match("bgcolor")) {
       input.value = v;
-      vals[t][inputName] = v;
+      vals['_'][inputName] = vals[t][inputName] = v;
     } else if (e0 = inputName.match("bgimage_pre")) {
-        set_bgimage((v=="") ? "" : srcimg[v]);
+        //set_bgimage((v=="") ? "" : srcimg[v]); -> ここでなくupdateCSSProperty_allの中で実行
         input.value = v;
-        vals[t][inputName] = v;  
+        vals['_'][inputName] = vals[t][inputName] = v;  
       //  updateCSSProperty('main', prop, v, v, inputName);
     } else if (e0 = inputName.match("bgimage_users")) {
       console.log("check bgimage_users on theme:", theme);
       try {
+        vals['_'][inputName] = vals[t][inputName] = v;  
         input.value = v;
       } catch (er) { }
       //updateCSSProperty('main', prop, v, v, inputName);
@@ -450,11 +465,12 @@ function init_by_theme(t) {
           v1 = (e0[3] == "size") ? v + "px" : v;
           //console.log(">", e0[0], v1);
           input.value = v;
+          vals['_'][inputName] = vals[t][inputName] = v;  
           //updateCSSProperty(`#innertext ${target_tag}`, id2propname(inputName), v1, v, inputName) 
         }
       }
       //updateCSSProperty(`#innertext ${target_tag}`, prop, v1, v, inputName);
-    } // if (e0 = ...)
+    } // if (e0 = ...) h2,h3,em,...
   }); // inputs.forEach
   md2html();
   updateCSSProperty_all(inputs);
