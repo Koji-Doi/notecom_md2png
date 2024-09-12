@@ -6,9 +6,18 @@
 body               {
                     font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
                    }
+nav                {
+                    margin: 1px;
+                   }
+h2                 {
+                    background-color: lightgray;
+                   }                   
 hgroup             {
                      font-size: x-large;
                      background-color: lightgray;
+                   }
+figure             {
+                    background-color: antiquewhite;
                    }
 ol, ul, dl         {
                     padding-left: 1em;
@@ -20,6 +29,12 @@ table, figure, img {
 tfoot, figcaption  {
                     font-size: smaller;
                    }
+footer             {
+                    border-top: 1px solid black;
+                    padding: 1px;
+                    margin: 0;
+                    width: 100vw;
+                   }
 </style>
 <link rel="stylesheet" type="text/css" href="wini_final.css"><title>Markgaab page</title>
 </head>
@@ -27,14 +42,28 @@ tfoot, figcaption  {
   <hgroup>
     <h1 class="mg">notecom_md2png</h1>
     <p>
-  note.com用見出し画像を超特急で作るためのHTMLアプリ
+  note.com用テキスト画像を超特急で作るためのHTMLアプリ
     </p>  
   </hgroup>
-  <p>
+  <nav>
     <span style="font-weight:bold;">とにかく<a href="md2png.html" target="_self">アプリ本体</a>を見る</span>
-  </p>
+  </nav>
    
-  <img src="notebanner2.png" style="max-width: 513px; width: 100vw;">
+  <h2>こんな画像が作れます</h2>
+  <figure>
+    <a href="notebanner2.png" target="_self"><img src="notebanner2.png" style="width: 100vw;"></a>
+    <figcaption>このようなテキスト入り画像が簡単に作成できます。<b>所要時間1分です。</b></figcaption>
+  </figure>
+  <figure>
+    <a href="timetable_sample.png" target="_self"><img src="timetable_sample.png" style="width: 100vw;"></a>
+    <figcaption>表の挿入もできます。</figcaption>
+  </figure>
+  <figure>
+    <a href="caution_sample.png" target="_self"><img src="caution_sample.png" style="width: 100vw;"></a>
+    <figcaption>注意書きの挿入もできます。</figcaption>
+  </figure>
+  
+  <h2>リンク</h2>
   <ul class="mglist">
    <li>
     アプリをダウンロードする
@@ -51,5 +80,11 @@ tfoot, figcaption  {
    </ul>
    </li>
   </ul>
+
+  <footer>
+    <p>
+      &copy; <a href="https://note.com/koji_doi.html">Koji Doi</a>. 2024. 
+    </p>
+  </footer>
 </body>
 </html>
