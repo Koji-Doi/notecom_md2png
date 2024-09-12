@@ -128,7 +128,7 @@ function updateCSSProperty_all(inputs){
       v_unit = v+"px";
     }else if(input.name.match("textv?align")){
     }else{
-      console.log("input.name = ", input.name);
+      //console.log("input.name = ", input.name);
       let xx = input.name.match("((?:h2|h3|st|em|th|td)?text)_(.*)");
       prop   = id2propname(xx[2]);
       target = csssel[xx[1]];
@@ -257,7 +257,9 @@ document.getElementById('textarea').addEventListener('change', function () {
 
   // md -> html
   document.getElementById('innertext').innerHTML = md.render(textInput);
-  updateCSSProperty_all(inputs);
+  //updateCSSProperty_all(inputs);
+  // update css other than 'bg*'
+  updateCSSProperty_all(Object.keys(inputs).filter(x=>{return !inputs[x].name.match("bg")}).map(x=>{return inputs[x]}));
   vals['_']['textarea'] = textInput;
   //init_by_theme('_');
 }); //document.getElementById('#textarea')
@@ -274,7 +276,7 @@ document.getElementById('bgcolor').addEventListener('change', function (event) {
 
 // 既設backgroundimageのどれかを選ぶ。ユーザー画像が選択されていたらそちらを優先
 document.getElementById('bgimage_pre').addEventListener('change', function (event) {
-  if (typeof vals['_']['bgimage_users'] === "undefined") {
+  if (typeof vals['_']['bgimage_users'] === "undefined" || vals['_']['bgimage_users'] == "") {
     vals['_']['bgimage_pre'] = this.value;
     set_bgimage(srcimg[this.value]);
   } else {
@@ -302,8 +304,25 @@ document.getElementById('bgimage_users').addEventListener('change', function (ev
 }); // document.getElementById('bgimage_users').
 // End of form 変更反映
 
+// png, jpg -> base64string
+function img_base64(file){
+  const filename = (typeof x == "string" && x.match)   ? x
+  : (typeof x == "object" && x["name"]) ? x["name"] : undefined;
+  let base64string;
+  if(filename){
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      console.log(`file ${file} is loaded and converted into base64`);
+      base64string = reader.result
+    };
+    return(base64string);
+  }
+  return(undefined);
+}
+
 function set_bgimage(x){
   //x: png file path, or base64-encoded data
+  console.trace();
   let base64String;
   const main = document.querySelector('main');
 
@@ -312,17 +331,25 @@ function set_bgimage(x){
     main.style.backgroundImage = "";
     main.style.backgroundColor = theme_val('_', 'bgcolor');
   }else{
-    if(x.match("data:image/png;base64")){
+    if(typeof x == "string" && x.match("data:image/[a-z]+;base64")){
       base64String = x;
-    }else{ // when x is not base64string but filename
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        console.log(`file ${file} is loaded and converted into base64`);
-        base64String = reader.result
-      };
-      reader.readAsDataURL(x);
+    }else if(typeof x == "object" && x["name"].match("data:image/[a-z]+;base64")){
+      base64String = x["name"];
+    }else{
+      const filename = (typeof x == "string" && x.match)   ? x
+                   : (typeof x == "object" && x["name"]) ? x["name"] : undefined;
+      if(filename){
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          console.log(`file ${file} is loaded and converted into base64`);
+          base64String = reader.result
+        };
+        reader.readAsDataURL(filename);  
+      }
     }
-    main.style.backgroundImage = `url(${base64String})`;  
+    if(base64String){
+      main.style.backgroundImage = `url(${base64String})`;  
+    }
   }
 }
 

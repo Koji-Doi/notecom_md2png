@@ -97,7 +97,7 @@ let vals ={
     blueback:{
       _label:       '青バックスライド風',
       bgimage_pre:  '',
-      bgcolor:      '#009bff',
+      bgcolor:      '#0000ff',
       h2text_size:  '220',
       h2text_weight:'bold',
       h2text_t_e1:  '5',
