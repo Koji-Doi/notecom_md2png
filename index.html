@@ -1,124 +1,228 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><link rel="stylesheet" type="text/css" href="https://unpkg.com/mvp.css">
-<style>
-body               {
-                    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
-                   }
-nav                {
-                    margin: 1px;
-                    font-size: xx-large;
-                   }
-h2                 {
-                    background-color: lightgray;
-                   }                   
-hgroup             {
-                     font-size: x-large;
-                     background-color: lightgray;
-                   }
-figure             {
-                    background-color: antiquewhite;
-                   }
-ol, ul, dl         {
-                    padding-left: 1em;
-                   }
-table, figure, img {
-                    margin: 1em;
-                    border-collapse: collapse;
-                   }
-tfoot, figcaption  {
-                    font-size: smaller;
-                   }
-footer             {
-                    border-top: 1px solid black;
-                    padding: 1px;
-                    margin: 0;
-                    width: 100vw;
-                   }
-img                {
-                    max-width: 600px;
-                    width: 90vw;
-                    border: 2px solid black;
-                     width: 90vw;
-                     padding: 0;
-                     margin: 0;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="うちの営業案内用ホームページ">
+    <title>ホームページサンプル</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* カラースキーム */
+        :root {
+            /* --main-color: #181C14;
+            --sub-color1: #6F6F6A;
+            --sub-color2: #697565;
+            --base-color: #ECDFCC; */
+            --main-color: #7500fa;
+            --main-color2: #8260a8;
+            --sub-color1: #00fad7;
+            --sub-color2: #fa4800;
+            --base-color: #ecdfcc;
+        }
 
-                   }
-</style>
-<link rel="stylesheet" type="text/css" href="wini_final.css"><title>notecom_md2png: Markdown to PNG file for note.com</title>
+        body {
+            background-color: var(--base-color);
+            color: var(--main-color);
+        }
+
+        header {
+            background-color: var(--main-color);
+            color: white; /* var(--base-color); */
+        }
+
+        footer {
+            background-color: var(--sub-color1);
+            color: var(--sub-color2);
+        }
+        h2,h3{
+            color: white; /*var(--sub-color2);*/
+            background-color: var(--main-color2);
+        }
+        .card-header {
+            background-color: var(--sub-color1);
+            color: black; /* var(--sub-color2); */
+        }
+
+        .card-body {
+            background-color: var(--base-color);
+            color: var(--main-color);
+        }
+
+        a {
+            color: var(--main-color2); /* var(--main-color); */
+        }
+
+        a:hover {
+            color: var(--sub-color2);
+        }
+        img{
+          width: 100%;
+        }
+    </style>
 </head>
 <body>
-  <hgroup>
-    <h1 class="mg">notecom_md2png</h1>
-    <p>
-  note.com用テキスト画像を超特急で作るためのHTMLアプリ
-    </p>  
-  </hgroup>
-  <nav>
-    <ul>
-      <li>
-        <span style="font-weight:bold;">とにかく<a href="md2png.html" target="_self">アプリ本体</a>を見る</span>
-      </li>
-      <li>
-        <span style="font-weight:normal; font-size:smaller;">(操作が簡易な<a href="md2png_old.html" target="_self">アプリ旧版</a>を見る)</span>
-      </li>
 
-    </ul>
-  </nav>
+    <!-- Header -->
+    <header class="text-center py-3">
+        <h1>notecom_md2png</h1>
+        <p>note.com用テキスト画像を超特急で作るためのHTMLアプリ</p>
+    </header>
 
-  <p>
-    md2png.htmlは、note.comでの記事作成に特化した画像作成用アプリです。
-  </p>
-  <p>
-    ウェブブラウザの中で簡単にテキスト入り画像を作成できます。バナー画像や表の作成に大いに役立ちます。
-  </p>
-  <div class="img">
-    <a href="operation_start.gif"><img src="operation_start.gif"></a>
-  </div>
-
-  <h2>こんな画像が作れます</h2>
-  <h3>見出し</h3>
-  <figure>
-    <a href="notebanner2.png" target="_self"><img src="notebanner2.png" style="width: 100vw;"></a>
-    <figcaption>このようなテキスト入り画像が簡単に作成できます。<b>所要時間1分です。</b></figcaption>
-  </figure>
-  <h3>表</h3>
-  <figure>
-    <a href="timetable_sample.png" target="_self"><img src="timetable_sample.png" style="width: 100vw;"></a>
-    <figcaption>表の挿入もできます。markdownの表フォーマットを使います。</figcaption>
-  </figure>
-  <h3>注意書き</h3>
-  <figure>
-    <a href="caution_sample.png" target="_self"><img src="caution_sample.png" style="width: 100vw;"></a>
-    <figcaption>注意書きの挿入もできます。アイコン入り背景画像や絵文字をうまく活用しましょう。</figcaption>
-  </figure>
+    <nav>
+      <ul>
+        <li>
+          <span style="font-weight:bold;">とにかく<a href="md2png.html" target="_self">アプリ本体&#x1F517;</a>を見る</span>
+        </li>
+        <li>
+          <span style="font-weight:normal; font-size:smaller;">(操作が簡易な<a href="md2png_old.html" target="_self">アプ
+  リ旧版&#x1F517;</a>を見る)</span>
+        </li>
   
-  <h2>リンク</h2>
-  <nav>
-    <span style="font-weight:bold;">とにかく<a href="md2png.html" target="_self">アプリ本体</a>を見る</span>
-  </nav>
-  <ul class="mglist">
-   <li>
-    アプリをダウンロードする
-    <ul class="mglist">
-      <li><a href="https://github.com/Koji-Doi/notecom_md2png/archive/refs/heads/main.zip">zipファイルをダウンロード</a></li>
-      
-      <li><a href="https://github.com/Koji-Doi/notecom_md2png/" target="_self">githubをチェックする</a></li>
-    </ul>
-   </li>
-   <li>作者について知る
-   <ul class="mglist">
-    <li><a href="https://note.com/koji_doi/n/n15ceb98262a0" target="_self">note.com上のプロフィール</a></li>
-    <li><a href="https://github.com/koji-doi/" target="_self">作者のgithubレポジトリ</a></li>
-   </ul>
-   </li>
-  </ul>
+      </ul>
+    </nav>
 
-  <footer>
-    <p>
-      &copy; <a href="https://note.com/koji_doi.html">Koji Doi</a>. 2024. 
-    </p>
-  </footer>
+
+    <!-- Subheading: About Us -->
+    <div class="container my-4">
+        <h2 class="text-center">このソフトについて</h2>
+        <p>
+          md2png.htmlは、note.comでの記事作成に特化した画像作成用アプリです。
+        </p>
+        <p>
+          ウェブブラウザの中で簡単にテキスト入り画像を作成できます。バナー画像や表の作成に大いに役立ちます。
+        </p>
+
+        <div class="img">
+          <a href="operation_start.gif"><img alt="demo oparation" src="operation_start.gif"></a>
+        </div>
+    
+    </div>
+
+    <h2 class="text-center">画像サンプル</h2>    
+      <div class="container my-4">
+        <h3 class="text-center mb-4">見出し画像</h3>
+        <div class="row">
+
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                      <img alt="png sample" src="b1.png">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+              <div class="card mb-4">
+                  <div class="card-body">
+                    <img alt="png sample" src="b2.png">
+                  </div>
+              </div>
+            </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                  <img alt="png sample" src="b3.png">
+                </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                  <img alt="png sample" src="b4.png">
+                </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                  <img alt="png sample" src="b5.png">
+                </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                  <img alt="png sample" src="b6.png">
+                </div>
+            </div>
+          </div>
+
+        </div> <!-- row -->
+      </div> <!-- container -->
+
+      <div class="container my-4">
+        <h3 class="text-center mb-4">表・注意書き</h3>  
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-6">
+              <div class="card-header">
+                表
+              </div>
+              <div class="card-body">
+                <img alt="png sample" src="timetable_sample.png">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card mb-6">
+              <div class="card-header">
+                注意書き
+              </div>
+              <div class="card-body">
+                <img alt="png sample" src="caution_sample.png">
+              </div>
+            </div>
+          </div>
+        </div> <!-- row -->
+      </div> <!-- container -->
+
+    <h2 class="text-center mb-4">とにかくアプリを見る</h2>
+    <ul class="text-center mb-4">
+      <li>
+        <span style="font-weight:bold;"><a href="md2png.html" target="_self">アプリ本体&#x1F517;</a>を見る</span>
+      </li>
+      <li>
+        <span style="font-weight:normal; font-size:smaller;">(操作が簡易な<a href="md2png_old.html" target="_self">アプ
+リ旧版&#x1F517;</a>を見る)</span>
+      </li>
+
+    </ul>
+
+    <h2 class="text-center mb-4">アプリをダウンロードする</h2>
+       
+       <ul class="text-center mb-4">
+         <li><a href="https://github.com/Koji-Doi/notecom_md2png/archive/refs/heads/main.zip">zipファイルをダウンロード&#x1F517;</a></li>
+   
+         <li><a href="https://github.com/Koji-Doi/notecom_md2png/" target="_self">githubをチェックする&#x1F517;</a></li>
+      </ul>
+    
+    <h2 class="text-center mb-4">作者について知る</h2>
+        <ul class="text-center mb-4">
+         <li><a href="https://note.com/koji_doi/n/n15ceb98262a0" target="_self">note.com上のプロフィール&#x1F517;</a></li>
+         <li><a href="https://github.com/koji-doi/" target="_self">作者のgithubレポジトリ&#x1F517;</a></li>
+        </ul>
+
+    <!-- Footer -->
+    <footer class="text-center py-3">
+      <p>
+        &copy; <a href="https://note.com/koji_doi.html">Koji Doi</a>. 2024.
+      </p> 
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
