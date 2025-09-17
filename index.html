@@ -24,15 +24,17 @@
             background-color: var(--base-color);
             color: var(--main-color);
         }
+        
+        /* ナビゲーションの背景色を紫に統一し、文字色を白に変更 */
         nav {
-            color: var(--main-color);
-            background-color: var(--sub-color2);
+            color: white;
+            background-color: var(--main-color);
         }
         nav a{
-            color: var(--sub-color1);
+            color: white;
         }
         nav a:hover{
-            color: var(--main-color2);
+            color: var(--sub-color1);
         }
 
         header {
@@ -45,19 +47,20 @@
             color: var(--sub-color2);
         }
 
-
+        /* h2見出しの背景と文字色を入れ替えて視認性を改善 */
         h2 {
-            color: var(--sub-color1);
-            background-color: var(--main-color2);
+            background-color: var(--sub-color1);
         }
 
         h3 {
             color: white; /*var(--sub-color2);*/
             background-color: var(--main-color2);
         }
+        
+        /* カードヘッダーの配色を統一し、コントラストを改善 */
         .card-header {
-            background-color: var(--sub-color1);
-            color: black; /* var(--sub-color2); */
+            background-color: var(--main-color);
+            color: white;
         }
 
         .card-body {
@@ -88,7 +91,7 @@
     <nav class="text-center">
       <ul>
         <li>
-          <span style="font-weight:bold;">とにかく<a href="md2png.html" target="_self">アプリ本体&#x1F517;</a>を見る</span>
+          <span style="font-weight:bold;">とにかく<a href="md2png3.html" target="_self">アプリ本体&#x1F517;</a>を見る</span>
         </li>
         <li>
           <span style="font-weight:normal; font-size:smaller;">(操作が簡易な<a href="md2png_old.html" target="_self">アプ
@@ -100,7 +103,6 @@
 
 
     <!-- Subheading: About Us -->
-    <div class="container my-4">
         <h2 class="text-center">このソフトについて</h2>
         <p>
           md2png.htmlは、note.comでの記事作成に特化した画像作成用アプリです。
@@ -112,8 +114,6 @@
         <div class="img">
           <a href="operation_start.gif"><img alt="demo oparation" src="operation_start.gif"></a>
         </div>
-    
-    </div>
 
     <h2 class="text-center">画像サンプル</h2>    
       <div class="container my-4">
@@ -236,7 +236,7 @@
     <!-- Footer -->
     <footer class="text-center py-3">
       <p>
-        &copy; <a href="https://note.com/koji_doi.html">Koji Doi</a>. 2024.
+        &copy; <a href="https://note.com/koji_doi.html">Koji Doi</a>. 2024-2025.
       </p> 
     </footer>
 

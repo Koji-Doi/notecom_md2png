@@ -8,8 +8,8 @@ let vals ={
     std:{
       _label: "標準",
       // p
-      text_size:     '50',     // text font size [px]
-      text_color:    '#000000',// text color
+      text_size:     '150',     // text font size [px]
+      text_color:    '#ffffff',// text color
       text_weight:   'normal', // normal or bold
       text_style:    'normal', // normal or italic
       text_t_e1:     '2',      // text stroke thickness
@@ -23,11 +23,11 @@ let vals ={
       h2text_style:  'normal', // h2 normal or italic
       h2text_t_e1:   '2',      // h2 text stroke thickness
       h2text_c_e1:   '#000000',// h2 text stroke color
-      h2text_t_e2:   '2',      // h2 text shadow width
+      h2text_t_e2:   '4',      // h2 text shadow width
       h2text_c_e2:   '#ffffff',// h2 text shadow color
       // h3
-      h3text_size:   '100',    // h3 text font size [px]
-      h3text_color:  '#ffa0a0',// h3 text color
+      h3text_size:   '150',    // h3 text font size [px]
+      h3text_color:  '#ffffaa',// h3 text color
       h3text_weight: 'normal', // h3 normal or bold
       h3text_style:  'normal', // h3 normal or italic
       h3text_t_e1:   '2',      // h3 text stroke thickness
@@ -35,17 +35,17 @@ let vals ={
       h3text_t_e2:   '2',      // h3 text shadow width
       h3text_c_e2:   '#ffffff',// h3 text shadow color
       // em
-      emtext_size:   '50',     // empahasized(em) text font size [px]
+      emtext_size:   '150',     // empahasized(em) text font size [px]
       emtext_color:  '#000000',// empahasized(em) text color
-      emtext_weight: 'normal', // empahasized(em) 'normal' or 'bold'
-      emtext_style:  'italic', // empahasized(em) 'normal' or 'italic'
+      emtext_weight: 'bold', // empahasized(em) 'normal' or 'bold'
+      emtext_style:  'normal', // empahasized(em) 'normal' or 'italic'
       emtext_t_e1:   '2',      // empahasized(em) text stroke thickness
       emtext_c_e1:   '#000000',// empahasized(em) text stroke color
       emtext_t_e2:   '2',      // empahasized(em) text shadow width
       emtext_c_e2:   '#ffffff',// empahasized(em) text shadow color
       // strong
-      sttext_size:   '50',     // strong text font size [px]
-      sttext_color:  '#000000',// strong text color
+      sttext_size:   '150',     // strong text font size [px]
+      sttext_color:  '#ffff00',// strong text color
       sttext_weight: 'bold',   // strong 'normal' or 'bold'
       sttext_style:  'normal', // strong 'normal' or 'italic'
       sttext_t_e1:   '2',      // strong text stroke thickness
@@ -78,20 +78,16 @@ let vals ={
       padding_top:   '0',      // top padding [px]
 
       // background
-      bgcolor:       '#ffffff',// background color (not effective if bgimage is set)
-      prebgimg:      'plant',  // preloaded background image
+      bgcolor:       '#000000',// background color (not effective if bgimage is set)
+      prebgimg:      '',  // preloaded background image
       bgimage_users: undefined,// background image file name (jpeg/png)
-      bgimage_pre:   'plant',  // preset background images (baloon1, baloon2, blackboard, computerwork, flower, nature, or plant)
+      bgimage_pre:   '',  // preset background images (baloon1, baloon2, blackboard, computerwork, flower, nature, or plant)
       textarea:
-`### 文字入りの画像は
-## 目立つ！
+`
+## 今日の呟き
 
-**strong** *em*
- 
-|       | 1列目 | 2列目 | 3列目 |
-|-------|-------|-------|-------|
-| 1行目 | 1-1   | 1-2   | 1-3   |
-| 2行目 | 2-1   | 2-2   | 2-3   |
+Noteにだって
+**つぶやき**が欲しい
 `
     },
     blueback:{
@@ -112,13 +108,13 @@ let vals ={
       _label:        '吹き出しと少女1',
       bgimage_pre:   'baloon1',
       textalign:     'left',
-      padding_left:  '300' 
+      padding_left:  '100' 
     },
     baloon2: {
       _label:        '吹き出しと少女2',
       bgimage_pre:   'baloon2',
       textalign:     'left',
-      padding_left:  '300' 
+      padding_left:  '100' 
     },
     flower: {
       _label:        '左右に花束',
@@ -139,14 +135,14 @@ let vals ={
     black_board_man:{
       _label:        '黒板と男性',
       bgimage_pre:   'blackboard', 
-      text_color:    '#ffff00',
-      text_size:     '70',
-      text_weight:   'normal',
-      emtext_color:  '#ff0000',
-      emtext_style:  'normal',
-      sttext_color:  '#ffff00',
-      sttext_weight: 'bold',
-      padding_left:  '120',
+      /* text_color:    '#ffff00',
+      #text_size:     '120',
+      #text_weight:   'normal',
+      #emtext_color:  '#ff0000',
+      #emtext_style:  'normal',
+      #sttext_color:  '#ffff00',
+      #sttext_weight: 'bold', */
+      padding_left:  '-100',
       padding_top:   '130'
     },
 

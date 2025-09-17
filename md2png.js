@@ -79,6 +79,17 @@ function id2propname(id) {
         : id.match("padding_left")  ? "paddingLeft" : '');
 }
 
+// 変更されたパラメータのリストを出力
+function vals_mod(k0){
+  let keys1 =  Object.keys(vals['std']);
+  let mod = {};
+  keys1.forEach(k => {
+    if(vals[theme][k] != vals['_'][k]){
+      console.log(`Val of ${k} is modified to ${vals['_'][k]}`);
+    }
+  });
+}
+
 // 指定されたCSSプロパティを更新
 function updateCSSProperty(selector, property, value_css, value_form, param) {
   const elements = document.querySelectorAll(selector);
@@ -141,24 +152,7 @@ function updateCSSProperty_all(inputs){
     if((typeof prop != 'undefined') && (typeof v != 'undefined')){
       // console.log(`"${target}" ${prop}=${v_unit} | ${input.name}=${v}`);
       document.querySelectorAll(target).forEach(t =>{
- /*        if(prop=="backgroundColor"){
-          if(!(theme_val('_', 'bgimage_users') && theme_val('_', 'bgimage_pre'))){
-            console.log('bgcolor to be set here.');
-            t.style[prop] = v;
-          }
-        }else if(prop=="backgroundImage"){
-          const user = theme_val('_', 'bgimage_user');
-          const pre  = theme_val('_', 'pre');
-          if(typeof user != 'undefined'){ //if users image is set, use it.
-            console.log('set users');
-          }else{
-            if(typeof pre != 'undefined'){ //if only pre image is set, use it.
-              console.log('set pre');
-            }
-          }
-        }else{ */
           t.style[prop] = v_unit;
-        //}
       });
     }else{
       //console.log(`update all: prop=${chkval(prop)}, v=${chkval(v)} `);
@@ -248,15 +242,29 @@ document.querySelectorAll('textarea,input').forEach( x=> {
   });
 });
 
+document.querySelectorAll(`input[name="rotate"]`).forEach(function (event) {
+  event.addEventListener('change', function () {
+    let v = (document.getElementById('rotate').checked) ? "-10deg" : "";
+    ['transform', '-moz-transform', '-webkit-transform'].forEach(k => {
+      document.querySelector("#innertext").style[k] = v;
+      console.log(k,v,document.querySelector("#innertext").style[k]);
+    });
+    vals['_']['rotate'] = v;
+  });
+});
+
 document.getElementById('textarea').addEventListener('change', function () {
   // テキスト入力フォームの内容を取得
   var textInput = document.getElementById('textarea').value;
+  // HTMLインジェクション対策：HTMLタグを無効化
+  textInput = textInput.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
   // 隠し機能：使用フォント名を追記する
   textInput = textInput.replace("***fontname***", getComputedStyle(document.querySelector('main')).font);
 
   // md -> html
-  document.getElementById('innertext').innerHTML = md.render(textInput);
+  //document.getElementById('innertext').innerHTML = md.render(textInput);
+  document.getElementById('innertext').innerHTML = md2html(textInput);
   //updateCSSProperty_all(inputs);
   // update css other than 'bg*'
   updateCSSProperty_all(Object.keys(inputs).filter(x=>{return !inputs[x].name.match("bg")}).map(x=>{return inputs[x]}));
@@ -344,7 +352,11 @@ function set_bgimage(x){
           console.log(`file ${file} is loaded and converted into base64`);
           base64String = reader.result
         };
-        reader.readAsDataURL(filename);  
+        try{
+          reader.readAsDataURL(filename);  
+        } catch (er) {
+          console.log(er)
+        }
       }
     }
     if(base64String){
@@ -371,21 +383,24 @@ function md2html(txt) {
   });
 
   const markdown_editer = $(".js-markdown-editer");
+  var result_html;
 
   if (typeof txt != 'undefined') {
-    markdown_editer.html(markdown_setting.render(txt))
+    result_html = markdown_setting.render(txt);
+    console.log("md2html: ", result_html);
+    markdown_editer.html(result_html);
   } else {
     // マークダウンの設定をjs-markdown-editerにHTMLとして反映させる
     //const markdown_html = markdown_setting.render(get_html(markdown_editer.html()));
-    const markdown_html = markdown_setting.render(document.getElementById('innertext').innerHTML);
+    result_html = markdown_setting.render(document.getElementById('innertext').innerHTML);
     markdown_editer.html(
-      markdown_html
+      result_html
     );
-    console.log("markdown_html: ", markdown_html);
+    console.log("markdown_html: ", result_html);
     updateCSSProperty_all(inputs);
     console.log("update css after md2html");
   }
-
+  return(result_html);
 } // function md2html(txt)
 
 // https://khsmty.com/article/html2canvas-image-download/
@@ -461,8 +476,12 @@ function init_by_theme(t) {
     } else if (e0 = inputName.match("bgimage_users")) {
       console.log("check bgimage_users on theme:", theme);
       try {
-        vals['_'][inputName] = vals[t][inputName] = v;  
-        input.value = v;
+        vals['_'][inputName] = vals[t][inputName] = v;
+        if((typeof v)=='undefined'){
+          input.value='';
+        }else{
+          input.value = v;
+        }
       } catch (er) { }
       //updateCSSProperty('main', prop, v, v, inputName);
     } else if (e0 = inputName.match("^(h2|h3|em|st|th|td)?([a-zA-Z0-9]+)_(.*)")) {
@@ -479,15 +498,6 @@ function init_by_theme(t) {
             input.checked = true;
           }
           let vv = input.id.match("_([a-zA-Z0-9]+)$")[1];
-/*           if (vv == v) {
-            document.querySelectorAll(`#innertext ${target_tag}`).forEach((e1) => {
-              try {
-                e1.style[prop] = v;
-              } catch (er) {
-                console.log(er)
-              }
-            })
-          } */
         } else if (input.type === "number" || input.type === "color" || input.type === "file") {
           v1 = (e0[3] == "size") ? v + "px" : v;
           //console.log(">", e0[0], v1);
